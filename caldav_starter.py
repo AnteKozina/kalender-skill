@@ -1,35 +1,46 @@
 import caldav
 from caldav.elements import dav
-from secrets import username, passwort
+from secrets import username, passwort, calendar_url
 import icalendar
+import datetime as dt
+from datetime import datetime
+import pytz
 
-# Caldav url
-# import secret login code from local file here
-username = "bw040@hdm-stuttgart.de"
-password = "beckerasano"
+Utc = pytz.UTC
 
-# url = f"https://{username}:{password}@next.social-robot.info/remote.php/dav"
-url = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
+class Calendar_Functions:
 
-# open connection to calendar
-client = caldav.DAVClient(url=url, username=username, password=passwort)
-principal = client.principal()
+    calendar = None
 
-# get all available calendars (for this user)
-calendars = principal.calendars()
-
-# check the calendar events and parse results..
-events = calendars[0].events()
-
-parsed_events = []
-for event in events:
-    event = icalendar.Event()
-    print(event)
-
-    '''
-    cal = icalendar.Calendar.from_ical(event.data, True)
-    url = event.url
-    print(cal[0].SUMMARY)
-    print("___")
+    # Initiate Class and connect to Calendar
+    def __init__(self, url, username, password):
+        self.client = caldav.DAVClient(
+            url=url,
+            username=username,
+            password=password
+        )
+        principal = self.client.principal()
+        self.calendar = principal.calendars()[0]
     
-    '''
+    # Get Events and parse them via Helper Function
+    def get_all_events(self):
+        events = self.calendar.events()
+        events_to_return = []
+        for event in events:
+            cal = icalendar.Calendar.from_ical(event.data, True)
+            url = event.url
+            for vevent in cal[0].walk("vevent"):
+                events_to_return.append(get_calender_events(vevent))
+        
+        return events_to_return
+
+'''
+HELPER FUNCTIONS
+'''
+
+def get_calender_events(cal_event):
+    return {
+        "summary" : cal_event["SUMMARY"],
+        "start" : cal_event["DTSTART"].dt,
+        "end" : cal_event["DTEND"].dt
+    }
