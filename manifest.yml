@@ -9,7 +9,7 @@
    python:
      - requests
      - caldav
-     - icalender
+     - icalendar
 #     - gensim
 #
 #   # Install packages with the system package manager
