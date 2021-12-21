@@ -4,7 +4,7 @@ from secrets import username, passwort
 
 # Caldav url
 # import secret login code from local file here
-username = username
+username = my_username
 password = passwort
 
 url = "https://" + username + ":" + password + "@next.social-robot.info/remote.php/dav"
