@@ -4,10 +4,12 @@
 #
 # To use this file, uncomment the lines you need, and fill in the appropriate information.
 #
-# dependencies:
+  dependencies:
 #   # Pip dependencies on PyPI
-#   python:
-#     - requests
+   python:
+     - requests
+     - caldav
+     - icalender
 #     - gensim
 #
 #   # Install packages with the system package manager
