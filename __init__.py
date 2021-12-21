@@ -1,6 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
-import caldav
-from caldav.elements import dav
+#import caldav
+#from caldav.elements import dav
 from secrets import my_username, passwort
 
 class Kalender(MycroftSkill):
