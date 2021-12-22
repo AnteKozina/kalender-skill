@@ -1,57 +1,65 @@
+import datetime
+from datetime import datetime as dt, tzinfo
 import caldav
 from caldav.elements import dav
-from secrets import username, passwort, calendar_url
+from secrets import USERNAME, PASSWORT, CALENDAR_URL
 import icalendar
-import datetime as dt
 import pytz
-
 
 Utc = pytz.UTC
 
-class Calendar_Functions:
+class CalendarFunctions:
+    '''Contains all functions, that are needed for our calender skill'''
 
     calendar = None
 
-
-    # Initiate Class and connect to Calendar
-    def __init__(self, url, username, password):
+    def __init__(self, url, calendar_username, calendar_password):
         self.client = caldav.DAVClient(
             url=url,
-            username=username,
-            password=password
+            username=calendar_username,
+            password=calendar_password
         )
         principal = self.client.principal()
         self.calendar = principal.calendars()[0]
-    
 
-    # Get Events and parse them via Helper Function
     def get_all_events(self):
+        '''
+        Gets all events from the calendar
+            Parameters: None
+            Returns: All events in a list
+        '''
         events = self.calendar.events()
         events_to_return = []
         for event in events:
             cal = icalendar.Calendar.from_ical(event.data, True)
             for vevent in cal[0].walk("vevent"):
                 events_to_return.append(get_calender_events(vevent))
-        
-        return events_to_return
-    
 
-    # TODO
+        return events_to_return
+
     def get_next_event(self):
+        '''
+        Function to get the next event from the calendar (the event with the next start date in the future)
+            Parameters: None
+            Returns: Next event
+        '''
         all_events = self.get_all_events()
-        # initialize with first event
-        earliest_event_index = 0
+        earliest_event = {}
+        time_now = dt.now(tz=None)
 
         # loop through all events, if start time earlier -> replace earlist_event with current event
-        for e in all_events:
-            date_1 = e["start"]
-            date_2 = all_events[earliest_event_index]["start"]
+        for event in all_events:
+            date_of_current_event = event["start"]
+            if date_of_current_event > time_now:
+                # If earliest event is empty, it will be false
+                if bool(earliest_event) is False:
+                    earliest_event = event
+                else:
+                    date_of_earliest_event = earliest_event["start"]
+                    if date_of_current_event < date_of_earliest_event:
+                        earliest_event = event
 
-            isinstance(date_1, dt.date)
-            #print(date_1)
-            #print(date_2)
-
-        return earliest_event_index
+        return earliest_event
 
 
     # TODO
@@ -60,13 +68,24 @@ class Calendar_Functions:
 
 
 
-'''
-HELPER FUNCTIONS
-'''
-
 def get_calender_events(cal_event):
+    '''
+    Build a calendar JSON Object from an event object
+        Parameters: Calendar Event
+        Returns: Dictionary of Events
+    '''
     return {
         "summary" : cal_event["SUMMARY"],
-        "start" : cal_event["DTSTART"].dt,
-        "end" : cal_event["DTEND"].dt
+        "start" : fix_time_object(cal_event["DTSTART"].dt),
+        "end" : fix_time_object(cal_event["DTEND"].dt)
     }
+
+def fix_time_object(time):
+    '''
+    Removes the timezone information, if timeobject contains timezone
+        Parameters: One Datetime Object
+        Returns: One Datetime Object without timezone
+    '''
+    if isinstance(time, datetime.date) and not isinstance(time, datetime.datetime):
+        time = dt(time.year, time.month, time.day)
+    return time.replace(tzinfo=None)

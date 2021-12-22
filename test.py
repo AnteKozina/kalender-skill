@@ -1,11 +1,11 @@
-import caldav
-from caldav.elements import dav
-from secrets import username, passwort, calendar_url
-import icalendar
 import datetime as dt
 from datetime import datetime
+from secrets import USERNAME, PASSWORT, CALENDAR_URL
+import caldav
+from caldav.elements import dav
+import icalendar
 import pytz
-from caldav_starter import Calendar_Functions
+from caldav_starter import CalendarFunctions
 
-calendar = Calendar_Functions(calendar_url, username, passwort)
+calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
 print(calendar.get_next_event())
