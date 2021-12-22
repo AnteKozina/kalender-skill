@@ -8,4 +8,4 @@ import pytz
 from caldav_starter import Calendar_Functions
 
 calendar = Calendar_Functions(calendar_url, username, passwort)
-print(calendar.get_all_events()[0]["start"].day)
+print(calendar.get_next_event())
