@@ -22,6 +22,7 @@ class CalendarFunctions:
         principal = self.client.principal()
         self.calendar = principal.calendars()[0]
 
+
     def get_all_events(self):
         '''
         Gets all events from the calendar
@@ -37,9 +38,11 @@ class CalendarFunctions:
 
         return events_to_return
 
+
     def get_next_event(self):
         '''
-        Function to get the next event from the calendar (the event with the next start date in the future)
+        Function to get the next event from the calendar 
+        (the event with the next start date in the future)
             Parameters: None
             Returns: Next event
         '''
@@ -62,10 +65,21 @@ class CalendarFunctions:
         return earliest_event
 
 
-    # TODO
-    def get_all_events_of_day(self):
-        pass
+    def get_all_events_of_day(self, day):
+        '''
+        Returns all events for a given day
+            Parameters: Day in datetime format
+            Returns: List of events
+        '''
+        all_events = self.get_all_events()
+        events_on_day = []
 
+        for event in all_events:
+            event_date = event["start"]
+            if (event_date.year == day.year) and (event_date.month == day.month) and (event_date.day == day.day):
+                events_on_day.append(event)
+
+        return events_on_day
 
 
 def get_calender_events(cal_event):
@@ -79,6 +93,7 @@ def get_calender_events(cal_event):
         "start" : fix_time_object(cal_event["DTSTART"].dt),
         "end" : fix_time_object(cal_event["DTEND"].dt)
     }
+
 
 def fix_time_object(time):
     '''
