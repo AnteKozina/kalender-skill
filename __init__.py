@@ -6,7 +6,7 @@ class Kalender(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
 
-    @intent_handler('kalender.intent')
+    @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
         print(message)
         # Caldav url
