@@ -1,6 +1,6 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from secrets import USERNAME, PASSWORT, CALENDAR_URL
-from caldav_starter import CalendarFunctions
+#from caldav_starter import CalendarFunctions
 
 class Kalender(MycroftSkill):
     def __init__(self):
