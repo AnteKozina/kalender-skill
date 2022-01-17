@@ -17,7 +17,11 @@ class Kalender(MycroftSkill):
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
-        self.speak_dialog(f"Funktioniert, {message.data['type']}")
+        month = message.data["month"]
+        day = message.data["day"]
+        year = message.data["year"]
+        
+        self.speak_dialog(f"{month} {day}, {year}")
 
 
 def create_skill():

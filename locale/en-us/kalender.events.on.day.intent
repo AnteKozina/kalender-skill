@@ -1,2 +1,1 @@
-test {type}
-What are my appointments on {type}
+test {month} {day}, {year}
