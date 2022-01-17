@@ -25,10 +25,30 @@ class Kalender(MycroftSkill):
         month = message.data.get("month")
         day = message.data.get("day")
         year = message.data.get("year")
-        
-        self.speak_dialog(f"{month} | {day} | {year}")
+
+        if check_month(month) and check_day(day) and check_year(year):
+            self.speak_dialog("Date works!")
+        else:
+            self.speak_dialog(f"Date doesnt work!")
 
 
 def create_skill():
     return Kalender()
+
+def check_month(month):
+    if month == None:
+        return False
+    return True
+
+def check_day(day):
+    if day == None:
+        return False
+    if (day < 1) or (day > 31):
+        return False
+    return True
+
+def check_year(year):
+    if year < 2022:
+        return False
+    return True
 

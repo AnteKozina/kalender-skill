@@ -1,6 +1,3 @@
-import re
-
-
 def get_next_event_string(event):
     """
     Takes in an event and returns a string containing the necessary information
@@ -38,3 +35,21 @@ def get_events_on_day_string(events):
         return_string += event_string
 
     return return_string[:-2] + "."
+
+
+def check_month(month):
+    if month == None:
+        return False
+    return True
+
+def check_day(day):
+    if day == None:
+        return False
+    if (day < 1) or (day > 31):
+        return False
+    return True
+
+def check_year(year):
+    if year < 2022:
+        return False
+    return True
