@@ -8,4 +8,7 @@ import pytz
 from caldav_starter import CalendarFunctions
 
 calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
-print(calendar.get_all_events_of_day(dt.datetime(year=2021, month=12, day=25)))
+response = calendar.get_all_events_of_day(dt.datetime(year=2021, month=12, day=25))
+print(response)
+print(str(response[0]["summary"]))
+# print(calendar.get_next_event())
