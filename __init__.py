@@ -41,6 +41,7 @@ def check_month(month):
     return True
 
 def check_day(day):
+    day = int(day)
     if day == None:
         return False
     if (day < 1) or (day > 31):
@@ -48,6 +49,7 @@ def check_day(day):
     return True
 
 def check_year(year):
+    year = int(year)
     if year < 2022:
         return False
     return True
