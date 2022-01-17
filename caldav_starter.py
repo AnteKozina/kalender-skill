@@ -79,7 +79,7 @@ class CalendarFunctions:
             if (event_date.year == day.year) and (event_date.month == day.month) and (event_date.day == day.day):
                 events_on_day.append(event)
 
-        return events_on_day
+        return (events_on_day, day)
 
 
 def get_calender_events(cal_event):
