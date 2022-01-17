@@ -37,19 +37,3 @@ def get_events_on_day_string(events):
     return return_string[:-2] + "."
 
 
-def check_month(month):
-    if month == None:
-        return False
-    return True
-
-def check_day(day):
-    if day == None:
-        return False
-    if (day < 1) or (day > 31):
-        return False
-    return True
-
-def check_year(year):
-    if year < 2022:
-        return False
-    return True
