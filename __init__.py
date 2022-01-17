@@ -14,7 +14,7 @@ class Kalender(MycroftSkill):
     def handle_kalender(self, message):
         # Caldav url
         # import secret login code from local file here
-        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        # calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         
         self.speak_dialog('TEST')
 
