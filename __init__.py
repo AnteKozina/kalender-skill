@@ -21,7 +21,7 @@ class Kalender(MycroftSkill):
         day = message.data["day"]
         year = message.data["year"]
         
-        self.speak_dialog(f"{month} {day}, {year}")
+        self.speak_dialog(f"{month} | {day} | {year}")
 
 
 def create_skill():
