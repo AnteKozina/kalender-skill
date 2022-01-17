@@ -13,7 +13,7 @@ class Kalender(MycroftSkill):
         # import secret login code from local file here
         # calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         
-        self.speak_dialog('TEST')
+        self.speak_dialog(message)
 
 
 def create_skill():
