@@ -1,1 +1,1 @@
-test {month} {day}, {year}
+test {month} {day} {year}
