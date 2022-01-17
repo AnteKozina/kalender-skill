@@ -1,8 +1,12 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
-from secrets import USERNAME, PASSWORT, CALENDAR_URL
+#from secrets import USERNAME, PASSWORT, CALENDAR_URL
 from caldav_starter import CalendarFunctions
 from datetime import datetime
 from helper import get_events_on_day_string, get_next_event_string
+
+USERNAME = "bw040@hdm-stuttgart.de"
+PASSWORT = "beckerasano2"
+CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
 
 
 class Kalender(MycroftSkill):

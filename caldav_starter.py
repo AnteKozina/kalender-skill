@@ -2,11 +2,17 @@ import datetime
 from datetime import datetime as dt, tzinfo
 import caldav
 from caldav.elements import dav
-from secrets import USERNAME, PASSWORT, CALENDAR_URL
+#from secrets import USERNAME, PASSWORT, CALENDAR_URL
 import icalendar
 import pytz
 
 Utc = pytz.UTC
+
+
+USERNAME = "bw040@hdm-stuttgart.de"
+PASSWORT = "beckerasano2"
+CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
+
 
 class CalendarFunctions:
     '''Contains all functions, that are needed for our calender skill'''
