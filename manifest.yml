@@ -8,8 +8,8 @@
 #   # Pip dependencies on PyPI
    python:
      - requests
-     - caldav
-     - icalendar
+#     - caldav
+#     - icalendar
 #     - gensim
 #
 #   # Install packages with the system package manager
