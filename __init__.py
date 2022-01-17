@@ -1,7 +1,10 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
-#import caldav
-#from caldav.elements import dav
-#from secrets import my_username, passwort
+import caldav
+from caldav.elements import dav
+from secrets import USERNAME, PASSWORT, CALENDAR_URL
+from caldav_starter import CalendarFunctions
+
+
 
 class Kalender(MycroftSkill):
     def __init__(self):
@@ -11,22 +14,9 @@ class Kalender(MycroftSkill):
     def handle_kalender(self, message):
         # Caldav url
         # import secret login code from local file here
-        username = "bw040@hdm-stuttgart.de"
-        password = "beckerasano"
-
-        url = "https://" + username + ":" + password + "@next.social-robot.info/remote.php/dav"
-
-        # open connection to calendar
-        client = caldav.DAVClient(url)
-        principal = client.principal()
-
-        # get all available calendars (for this user)
-        calendars = principal.calendars()
-
-        # check the calendar events and parse results..
-        print(calendars)
-
-        self.speak_dialog('kalender')
+        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        
+        self.speak_dialog('TEST')
 
 
 def create_skill():
