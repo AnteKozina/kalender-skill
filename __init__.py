@@ -34,10 +34,13 @@ class Kalender(MycroftSkill):
         day = message.data.get("day")
         year = message.data.get("year")
 
+        datetime_object = datetime.datetime.strptime(month_name, "%B")
+        month_number = datetime_object.month
+
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
 
         if check_month(month) and check_day(day) and check_year(year):
-            events = calendar.get_all_events_of_day(datetime(year, month, day))
+            events = calendar.get_all_events_of_day(datetime(year, month_number, day))
             response = get_events_on_day_string(events)
             self.speak_dialog(response)
         else:
