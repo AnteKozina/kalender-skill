@@ -1,4 +1,4 @@
-import CalendarFunctions
+from . import CalendarFunctions
 from datetime import datetime
 from helper import get_events_on_day_string, get_next_event_string
 #from secrets import USERNAME, PASSWORT, CALENDAR_URL
