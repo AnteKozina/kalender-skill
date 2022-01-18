@@ -163,8 +163,8 @@ def fix_time_object(time):
         Parameters: One Datetime Object
         Returns: One Datetime Object without timezone
     '''
-    if isinstance(time, datetime.date) and not isinstance(time, datetime.datetime):
-        time = dt(time.year, time.month, time.day)
+    #if isinstance(time, datetime.date) and not isinstance(time, datetime.datetime):
+     #  time = dt(time.year, time.month, time.day)
     return time.replace(tzinfo=None)
 def get_next_event_string(event):
     """
