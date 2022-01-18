@@ -6,8 +6,8 @@ import pytz
 import caldav
 import icalendar
 
-USERNAME = "bw040@hdm-stuttgart.de"
-PASSWORT = "beckerasano2"
+#USERNAME = "bw040@hdm-stuttgart.de"
+#PASSWORT = "beckerasano2"
 CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
 Utc = pytz.UTC
 
@@ -20,6 +20,8 @@ class Kalender(MycroftSkill):
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
+        USERNAME = self.settings.get('my_email_address')
+        PASSWORT = self.settings.get('my_password')
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
