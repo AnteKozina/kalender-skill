@@ -2,7 +2,6 @@ from datetime import datetime
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from datetime import datetime as dt, tzinfo
 #from secrets import USERNAME, PASSWORT, CALENDAR_URL
-from pytz import pytz 
 
 USERNAME = "bw040@hdm-stuttgart.de"
 PASSWORT = "beckerasano2"
