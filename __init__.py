@@ -31,8 +31,8 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
         month = message.data.get("month")
-        day = message.data.get("day")
-        year = message.data.get("year")
+        day = int(message.data.get("day"))
+        year = int(message.data.get("year"))
 
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
