@@ -34,7 +34,7 @@ class Kalender(MycroftSkill):
         day = message.data.get("day")
         year = message.data.get("year")
 
-        datetime_object = datetime.datetime.strptime(month_name, "%B")
+        datetime_object = datetime.strptime(month_name, "%B")
         month_number = datetime_object.month
 
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
