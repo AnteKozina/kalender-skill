@@ -6,6 +6,7 @@ from word2number import w2n
 import pytz
 import caldav
 import icalendar
+import math
 
 USERNAME = "bw040@hdm-stuttgart.de"
 PASSWORT = "beckerasano2"
