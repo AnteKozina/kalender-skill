@@ -8,8 +8,8 @@ import caldav
 import icalendar
 import math
 
-#USERNAME = "bw040@hdm-stuttgart.de"
-#PASSWORT = "beckerasano2"
+USERNAME = "bw040@hdm-stuttgart.de"
+PASSWORT = "beckerasano2"
 CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
 Utc = pytz.UTC
 
@@ -26,8 +26,8 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-        USERNAME = self.settings.get('my_email_address')
-        PASSWORT = self.settings.get('my_password')
+        #USERNAME = self.settings.get('my_email_address')
+        #PASSWORT = self.settings.get('my_password')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
@@ -35,8 +35,8 @@ class Kalender(MycroftSkill):
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
-        USERNAME = self.settings.get('my_email_address')
-        PASSWORT = self.settings.get('my_password')
+        #USERNAME = self.settings.get('my_email_address')
+        #PASSWORT = self.settings.get('my_password')
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
