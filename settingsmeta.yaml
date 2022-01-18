@@ -5,10 +5,10 @@ skillMetadata:
           - name: my_email_address
             type: email
             label: Enter your email address
-            value:
+            value: bw040@hdm-stuttgart.de
       - name: PASSWORT
         fields:
           - name: my_password
             type: password
             label: Enter your password
-            value:
+            value: beckerasano2
