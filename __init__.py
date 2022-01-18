@@ -1,12 +1,10 @@
 from datetime import datetime
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
-import datetime
 from datetime import datetime as dt, tzinfo
-import caldav
 from caldav.elements import dav
 #from secrets import USERNAME, PASSWORT, CALENDAR_URL
-import icalendar
-import pytz
+import icalendar from icalendar
+import pytz from pytz
 
 USERNAME = "bw040@hdm-stuttgart.de"
 PASSWORT = "beckerasano2"
