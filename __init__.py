@@ -36,6 +36,7 @@ class Kalender(MycroftSkill):
 
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
+        self.speak_dialog(month_number)
 
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
 
