@@ -10,13 +10,13 @@ dependencies:
     - requests
     - caldav
     - icalendar
-
 #     - gensim
 #
 #   # Install packages with the system package manager
 #   # This searches for the provided executable and uses the package names
-   system:
-     all: pianobar piano-dev
+#   system:
+#     # For simple packages, this is all that is necessary
+#     all: pianobar piano-dev
 #
 #     # If the package has a certain name on a different platform:
 #     pkcon: pianobar libpiano-dev  # For the mycroft platform
