@@ -21,8 +21,6 @@ class Kalender(MycroftSkill):
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
-        #USERNAME = self.settings.get('my_email_address')
-        #PASSWORT = self.settings.get('my_password')
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
