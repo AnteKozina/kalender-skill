@@ -36,10 +36,10 @@ class Kalender(MycroftSkill):
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
 
-        if math.isnan(year) 
+        if nan_check(year) 
             year = w2n.word_to_num(message.data.get("year"))
 
-        if math.isnan(day)
+        if nan_check(day)
             day = w2n.word_to_num(message.data.get("day"))
 
         datetime_object = datetime.strptime(month, "%B")
@@ -54,6 +54,8 @@ class Kalender(MycroftSkill):
         else:
             self.speak_dialog("Date doesnt work")
 
+def nan_check(number)
+    return math.isnan(number)
 
 def create_skill():
     return Kalender()
