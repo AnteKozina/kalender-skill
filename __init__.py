@@ -1,7 +1,7 @@
-from caldav_starter import CalendarFunctions
+import CalendarFunctions
 from datetime import datetime
 from helper import get_events_on_day_string, get_next_event_string
-from secrets import USERNAME, PASSWORT, CALENDAR_URL
+#from secrets import USERNAME, PASSWORT, CALENDAR_URL
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 
 USERNAME = "bw040@hdm-stuttgart.de"
@@ -38,7 +38,7 @@ class Kalender(MycroftSkill):
             response = get_events_on_day_string(events)
             self.speak_dialog(response)
         else:
-            self.speak_dialog(f"Date doesnt work!")
+            self.speak_dialog("Date doesnt work")
 
 
 def create_skill():
