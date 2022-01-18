@@ -36,7 +36,7 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
         USERNAME = self.settings.get('my_email_address')
-        PASSWORT = self.settings.get('my_password'
+        PASSWORT = self.settings.get('my_password')
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
