@@ -1,5 +1,4 @@
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
-from caldav import caldav
 
 class Kalender(MycroftSkill):
     def __init__(self):
