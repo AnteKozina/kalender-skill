@@ -1,6 +1,7 @@
 from datetime import datetime
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from datetime import datetime as dt, tzinfo
+from word2number import w2n
 #from secrets import USERNAME, PASSWORT, CALENDAR_URL
 import pytz
 import caldav
@@ -34,6 +35,12 @@ class Kalender(MycroftSkill):
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
+
+        if math.isnan(year) 
+            year = w2n.word_to_num(message.data.get("year"))
+
+        if math.isnan(day)
+            day = w2n.word_to_num(message.data.get("day"))
 
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
