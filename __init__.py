@@ -36,10 +36,10 @@ class Kalender(MycroftSkill):
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
 
-        if nan_check(year) 
+        if nan_check(year) == True
             year = w2n.word_to_num(message.data.get("year"))
 
-        if nan_check(day)
+        if nan_check(day) == True
             day = w2n.word_to_num(message.data.get("day"))
 
         datetime_object = datetime.strptime(month, "%B")
