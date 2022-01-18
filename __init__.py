@@ -54,7 +54,7 @@ class Kalender(MycroftSkill):
         else:
             self.speak_dialog("Date doesnt work")
 
-def nan_check(number)
+def nan_check(number):
     return math.isnan(number)
 
 def create_skill():
