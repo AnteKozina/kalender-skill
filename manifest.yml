@@ -4,14 +4,15 @@
 #
 # To use this file, uncomment the lines you need, and fill in the appropriate information.
 #
-dependencies:
+#dependencies:
 #   # Pip dependencies on PyPI
-  python:
-    - requests
-    - caldav
-    - icalendar
-  system:
-    all: libxml2-dev libxslt-dev python-dev python3-lxml
+ # python:
+  ##  - requests
+  #  - caldav
+  #  - icalendar
+
+ # system:
+  #  all: libxml2-dev libxslt-dev python-dev python3-lxml
 #     - gensim
 #
 #   # Install packages with the system package manager
