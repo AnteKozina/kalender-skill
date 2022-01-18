@@ -4,22 +4,19 @@
 #
 # To use this file, uncomment the lines you need, and fill in the appropriate information.
 #
-#dependencies:
+dependencies:
 #   # Pip dependencies on PyPI
- # python:
-  ##  - requests
-  #  - caldav
-  #  - icalendar
+  python:
+    - requests
+    - caldav
+    - icalendar
 
- # system:
-  #  all: libxml2-dev libxslt-dev python-dev python3-lxml
 #     - gensim
 #
 #   # Install packages with the system package manager
 #   # This searches for the provided executable and uses the package names
-#   system:
-#     # For simple packages, this is all that is necessary
-#     all: pianobar piano-dev
+   system:
+     all: pianobar piano-dev
 #
 #     # If the package has a certain name on a different platform:
 #     pkcon: pianobar libpiano-dev  # For the mycroft platform
