@@ -10,7 +10,8 @@ import icalendar
 #PASSWORT = "beckerasano2"
 CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
 Utc = pytz.UTC
-
+USERNAME = ""
+PASSWORT = ""
 
 class Kalender(MycroftSkill):
     def __init__(self):
