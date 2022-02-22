@@ -37,22 +37,14 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
 
-        settings = self.settings
-
-        username = settings["skillMetadata"]["sections"][0]["fields"][0]["value"]
-
-        # print(f'{usr}, {passwd}')
-        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        calendar = CalendarFunctions(self.url, self.username, self.password)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
-        info(self.settings)
-        info(username)
-        self.speak_dialog(f"{username}")
+        self.speak_dialog(response)
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
-        #USERNAME = self.settings.get('my_email_address')
-        #PASSWORT = self.settings.get('my_password')
+
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
@@ -66,7 +58,7 @@ class Kalender(MycroftSkill):
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
 
-        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        calendar = CalendarFunctions(self.url, self.username, self.password)
 
         if check_month(month) and check_day(day) and check_year(year):
             events = calendar.get_all_events_of_day(datetime(year, month_number, day))
