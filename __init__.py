@@ -58,7 +58,7 @@ class Kalender(MycroftSkill):
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
 
-        info(datetime_object)
+        info("TEST: " + str(datetime_object))
 
         calendar = CalendarFunctions(self.url, self.username, self.password)
 
