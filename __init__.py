@@ -185,6 +185,7 @@ def fix_time_object(time):
         Returns: One Datetime Object without timezone
     '''
     # Falls datetime.date
+    info(type(time))
     if isinstance(time, datetime.date):
         time = datetime(time.year, time.month, time.day)
     
