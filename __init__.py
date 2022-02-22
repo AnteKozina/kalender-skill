@@ -184,8 +184,10 @@ def fix_time_object(time):
         Parameters: One Datetime Object
         Returns: One Datetime Object without timezone
     '''
+    info(time)
     try: 
-        time.replace(tzinfo=None)
+        time = time.replace(tzinfo=None)
+        info("WORKS")
     except: 
         info("FAILED")
     finally:
