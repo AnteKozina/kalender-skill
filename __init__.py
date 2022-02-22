@@ -28,6 +28,14 @@ class Kalender(MycroftSkill):
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
 
+    @intent_handler('kalender.next.event.intent')
+    def handle_kalender(self, message):
+
+        calendar = CalendarFunctions(self.url, self.username, self.password)
+        event = calendar.get_next_event()
+        response = get_next_event_string(event)
+        self.speak_dialog(response)
+
     @intent_handler('kalender.create.event')
     def create_new_event(self):
 
@@ -41,13 +49,6 @@ class Kalender(MycroftSkill):
         cal.add_component(event)
         self.calendar.add_event(cal)
 
-    @intent_handler('kalender.next.event.intent')
-    def handle_kalender(self, message):
-
-        calendar = CalendarFunctions(self.url, self.username, self.password)
-        event = calendar.get_next_event()
-        response = get_next_event_string(event)
-        self.speak_dialog(response)
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
