@@ -73,7 +73,7 @@ class Kalender(MycroftSkill):
         start_time = message.data.get("startTime") # 17:45
         end_time = message.data.get("endTime")
 
-        start_time_date = datetime.datetime(year, month, day, start_time[:2], start_time[3:], 0)
+        #start_time_date = datetime.datetime(year, month, day, start_time[:2], start_time[3:], 0)
         info(day)
         info(month)
         info(year)
