@@ -188,8 +188,10 @@ def fix_time_object(time):
     try: 
         time = time.replace(tzinfo=None)
         info("WORKS")
+        info(type(time))
     except: 
         info("FAILED")
+        info(type(time))
     finally:
         info("----------")
         return time
