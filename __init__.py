@@ -36,19 +36,6 @@ class Kalender(MycroftSkill):
         response = get_next_event_string(event)
         self.speak_dialog(response)
 
-    @intent_handler('kalender.create.event')
-    def create_new_event(self):
-
-        calendar = CalendarFunctions(self.url, self.username, self.password)
-        cal = icalendar.Calendar()
-        event = icalendar.Event()
-        event.add('summary', 'Test')
-        x = datetime.datetime(2020, 5, 17)
-        event.add('dtstart', x)
-        event.add('dtend', x)
-        cal.add_component(event)
-        self.calendar.add_event(cal)
-
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
