@@ -63,7 +63,7 @@ class Kalender(MycroftSkill):
             self.speak_dialog("Date doesnt work")
 
 
-    @intent_handler('kalender.create.event')
+    @intent_handler('kalender.create.event.intent')
     def create_new_event(self, message):
 
         calendar = CalendarFunctions(self.url, self.username, self.password)
