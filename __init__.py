@@ -1,4 +1,5 @@
 from datetime import datetime
+from logging import info
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from datetime import datetime as dt, tzinfo
 from word2number import w2n
@@ -26,18 +27,14 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-        
-        with open("./skills/kalender-skill.antekozina/settings.json") as f:
-            settings = json.load(f)
-        
-        usr = settings["username"]
-        print(usr)
 
-        # passwd = self.settings.get('my_password')
+        usr = self.settings.get('my_email_address')
         # print(f'{usr}, {passwd}')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
+        info(usr)
+        info(self.settings)
         self.speak_dialog(f"{usr}")
     
     @intent_handler('kalender.events.on.day.intent')

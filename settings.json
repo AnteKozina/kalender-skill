@@ -1,3 +1,17 @@
 {
-    "username" : "bw040@hdm-stuttgart.de"
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "Email Field Example",
+                "fields": [
+                    {
+                        "name": "my_email_address",
+                        "type": "email",
+                        "label": "Enter your email address",
+                        "value": "bw040@hdm-stuttgart.de"
+                    }
+                ]
+            }
+        ]
+    }
 }
