@@ -19,11 +19,10 @@ Utc = pytz.UTC
 class Kalender(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-        """
         self.username = None
         self.url = None
         self.password = None
-        """
+
     def initialize(self):
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
