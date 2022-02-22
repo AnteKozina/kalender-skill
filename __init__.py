@@ -44,7 +44,7 @@ class Kalender(MycroftSkill):
     def get_calender(self):
     # initialize the calender, caldav -- Oder auch nicht mit aktueller Architektur
         return None
-
+'''
     @intent_handler('kalender.create.event') # noch machen
     def create_new_event(self):
         USERNAME = self.settings.get('my_email_address')
@@ -61,7 +61,7 @@ class Kalender(MycroftSkill):
         event.add('dtend', x)
         cal.add_component(event)
         self.calendar.add_event(cal)
-
+'''
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
         USERNAME = self.settings.get('username')
