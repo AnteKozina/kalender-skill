@@ -19,6 +19,10 @@ Utc = pytz.UTC
 class Kalender(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
+        
+        settings_file = self.settings
+        info(settings_file) 
+
     
     def initialize(self):
         self.register_entity_file('year.entity')
@@ -181,7 +185,6 @@ def get_calender_events(cal_event):
         #"url" : cal_event["url"]
     }
 
-
 def fix_time_object(time):
     '''
     Removes the timezone information, if timeobject contains timezone
@@ -191,6 +194,7 @@ def fix_time_object(time):
     #if isinstance(time, datetime.date) and not isinstance(time, datetime.datetime):
     time = dt(time.year, time.month, time.day)
     return time.replace(tzinfo=None)
+
 def get_next_event_string(event):
     """
     Takes in an event and returns a string containing the necessary information
