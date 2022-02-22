@@ -31,6 +31,7 @@ class Kalender(MycroftSkill):
             settings = json.load(f)
         
         usr = settings["username"]
+        print(usr)
 
         # passwd = self.settings.get('my_password')
         # print(f'{usr}, {passwd}')
