@@ -118,6 +118,7 @@ class CalendarFunctions:
             for vevent in cal[0].walk("vevent"):
                 events_to_return.append(get_calender_events(vevent))
 
+        info(events_to_return)
         return events_to_return
 
 
