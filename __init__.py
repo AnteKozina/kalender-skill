@@ -193,6 +193,7 @@ def get_next_event_string(event):
     """
     event_name = event["summary"]
     start_time = event["start"]
+    info(event)
 
     year = start_time.year
     month = start_time.strftime("%B")
