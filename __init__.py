@@ -28,14 +28,17 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
 
-        usr = self.settings.get('my_email_address')
+        settings = self.settings
+
+        username = settings["skillMetadata"]["sections"][0]["fields"][0]["value"]
+
         # print(f'{usr}, {passwd}')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
-        info(usr)
         info(self.settings)
-        self.speak_dialog(f"{usr}")
+        info(username)
+        self.speak_dialog(f"{username}")
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
