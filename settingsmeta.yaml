@@ -1,22 +1,20 @@
-
 skillMetadata:
-  sections:
-    - name: Options << Name of section
-      fields:
-        - name: internal_python_variable_name
-          type: text
-          label: Setting Friendly Display Name
-          value: ""
-          placeholder: demo prompt in the input box
-    - name: Login << Name of another section
-      fields:
-        - type: label
-          label: Just a little bit of extra info for the user to understand following settings
-        - name: username
-          type: text
-          label: Username
-          value: ""
-        - name: password
-          type: password
-          label: Password
-          value: ""
+   sections:
+      - name: USERNAME
+        fields:
+          - name: my_email_address
+            type: email
+            label: Enter your email address
+            value: "bw040@hdm-stuttgart.de"
+      - name: PASSWORT
+        fields:
+          - name: my_password
+            type: password
+            label: Enter your password
+            value: "beckerasano2"
+      - name: URL
+        fields:
+          - name: url
+            type: text
+            label: enter calendar url
+            value: "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
