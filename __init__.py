@@ -3,17 +3,11 @@ from logging import info
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from datetime import datetime as dt, tzinfo
 from word2number import w2n
-#from secrets import USERNAME, PASSWORT, CALENDAR_URL
 import pytz
 import caldav
 import icalendar
 import math
-import json
-import os
 
-USERNAME = "bw040@hdm-stuttgart.de"
-PASSWORT = "beckerasano2"
-CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
 Utc = pytz.UTC
 
 class Kalender(MycroftSkill):
@@ -36,10 +30,8 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.create.event')
     def create_new_event(self):
-        #USERNAME = self.settings.get('my_email_address')
-        #PASSWORT = self.settings.get('my_password')
-        #CALENDAR_URL = self.settings.get('url')
-        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+
+        calendar = CalendarFunctions(self.url, self.username, self.password)
         cal = icalendar.Calendar()
         event = icalendar.Event()
         event.add('summary', 'Test')
