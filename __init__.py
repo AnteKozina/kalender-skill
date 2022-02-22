@@ -191,6 +191,7 @@ def fix_time_object(time):
     except: 
         info("FAILED")
     finally:
+        info("----------")
         return time
 
 def get_next_event_string(event):
