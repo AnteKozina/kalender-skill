@@ -1,5 +1,6 @@
 from datetime import datetime
 from logging import info
+from this import d
 from mycroft import MycroftSkill, intent_file_handler, intent_handler
 from datetime import datetime as dt, tzinfo
 from word2number import w2n
@@ -44,26 +45,30 @@ class Kalender(MycroftSkill):
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
 
-        if nan_check(year):
+        if math.isnan(year):
             year = w2n.word_to_num(message.data.get("year"))
 
-        if nan_check(day):
+        if math.isnan(day):
             day = w2n.word_to_num(message.data.get("day"))
+
+        info(f"YEAR: {year}")
+        info(f"MONTH: {month}")
+        info(f"DAY: {day}")
 
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
 
+        info(datetime_object)
+
         calendar = CalendarFunctions(self.url, self.username, self.password)
 
+        # CHECK IF USEABLE DATE
         if check_month(month) and check_day(day) and check_year(year):
             events = calendar.get_all_events_of_day(datetime(year, month_number, day))
             response = get_events_on_day_string(events)
             self.speak_dialog(response)
         else:
             self.speak_dialog("Date doesnt work")
-
-def nan_check(number):
-    return math.isnan(number)
 
 def create_skill():
     return Kalender()
