@@ -24,8 +24,9 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-        #USERNAME = self.settings.get('my_email_address')
-        #PASSWORT = self.settings.get('my_password')
+        usr = self.settings.get('my_email_address')
+        passwd = self.settings.get('my_password')
+        print(f'{usr}, {passwd}')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
