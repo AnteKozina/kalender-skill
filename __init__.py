@@ -186,11 +186,15 @@ def fix_time_object(time):
     '''
     # Falls datetime.date
     info(type(time))
-    if isinstance(time, datetime.date):
-        time = datetime(time.year, time.month, time.day)
+    try:
+        hour = time.hour
+    except:
+        info(time)
+        time = dt(time.year, time.month, time.day)
     
     time = time.replace(tzinfo=None)
     info(time)
+    info("------")
     return time
 
 def get_next_event_string(event):
