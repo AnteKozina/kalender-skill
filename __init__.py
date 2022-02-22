@@ -7,6 +7,7 @@ import pytz
 import caldav
 import icalendar
 import math
+import json
 
 USERNAME = "bw040@hdm-stuttgart.de"
 PASSWORT = "beckerasano2"
@@ -24,7 +25,12 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-        usr = self.settings.get('my_email_address')
+
+        with open("./settings.json") as f:
+            settings = json.loads(f)
+        
+        usr = settings["username"]
+
         passwd = self.settings.get('my_password')
         #print(f'{usr}, {passwd}')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
