@@ -26,8 +26,8 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
 
-        with open("./settings.json") as f:
-            settings = json.loads(f)
+        with open("settings.json") as f:
+            settings = json.load(f)
         
         usr = settings["username"]
 
