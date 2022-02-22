@@ -31,12 +31,12 @@ class Kalender(MycroftSkill):
         
         usr = settings["username"]
 
-        passwd = self.settings.get('my_password')
-        #print(f'{usr}, {passwd}')
+        # passwd = self.settings.get('my_password')
+        # print(f'{usr}, {passwd}')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
-        self.speak_dialog(f'{usr}, {passwd}')
+        self.speak_dialog(f"{usr}")
     
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
