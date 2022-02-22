@@ -51,14 +51,9 @@ class Kalender(MycroftSkill):
         if math.isnan(day):
             day = w2n.word_to_num(message.data.get("day"))
 
-        info(f"YEAR: {year}")
-        info(f"MONTH: {month}")
-        info(f"DAY: {day}")
-
+        # TO GET NUMBER OF MONTH, E.G. MARCH -> 3
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
-
-        info("TEST: " + str(datetime_object))
 
         calendar = CalendarFunctions(self.url, self.username, self.password)
 
@@ -175,7 +170,6 @@ def get_calender_events(cal_event):
         Parameters: Calendar Event
         Returns: Dictionary of Events
     '''
-    info(fix_time_object(cal_event["DTSTART"].dt))
     return {
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
@@ -189,17 +183,13 @@ def fix_time_object(time):
         Parameters: One Datetime Object
         Returns: One Datetime Object without timezone
     '''
-    # Falls datetime.date
-    info(type(time))
     try:
         hour = time.hour
     except:
-        info(time)
+        # WHEN DATE OBJECT IS ONLY DATE, NOT TIME
         time = dt(time.year, time.month, time.day)
     
     time = time.replace(tzinfo=None)
-    info(time)
-    info("------")
     return time
 
 def get_next_event_string(event):
@@ -208,7 +198,6 @@ def get_next_event_string(event):
     """
     event_name = event["summary"]
     start_time = event["start"]
-    info(event)
 
     year = start_time.year
     month = start_time.strftime("%B")
