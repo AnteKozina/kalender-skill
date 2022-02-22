@@ -118,7 +118,6 @@ class CalendarFunctions:
             for vevent in cal[0].walk("vevent"):
                 events_to_return.append(get_calender_events(vevent))
 
-        info(events_to_return)
         return events_to_return
 
 
@@ -171,6 +170,7 @@ def get_calender_events(cal_event):
         Parameters: Calendar Event
         Returns: Dictionary of Events
     '''
+    info(cal_event)
     return {
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
