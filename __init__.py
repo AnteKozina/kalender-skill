@@ -8,6 +8,9 @@ import caldav
 import icalendar
 import math
 
+'''
+Das muss ersetzt werden
+'''
 USERNAME = "bw040@hdm-stuttgart.de"
 PASSWORT = "beckerasano2"
 CALENDAR_URL = "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
@@ -16,16 +19,55 @@ Utc = pytz.UTC
 class Kalender(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-    
+        """
+        self.username = None
+        self.url = None
+        self.password = None
+        """
     def initialize(self):
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
 
-    @intent_handler('kalender.next.event.intent')
-    def handle_kalender(self, message):
+    def reset_credentials(self):
+    # resetting credentials
+        return None
+
+    def generate_settings(self):
+    # def_credentials
+    # def get_calender -- Oder auch nicht mit aktueller Architektur
+        return None
+
+    def get_credentials(self):
+    # get the username and password
+        return None
+
+    def get_calender(self):
+    # initialize the calender, caldav -- Oder auch nicht mit aktueller Architektur
+        return None
+
+    @intent_handler('kalender.create.event') # noch machen
+    def create_new_event(self):
         #USERNAME = self.settings.get('my_email_address')
         #PASSWORT = self.settings.get('my_password')
+        #CALENDAR_URL = self.settings.get('url')
+        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        cal = icalendar.Calendar()
+        event = icalendar.Event()
+        #https://www.programcreek.com/python/example/56510/icalendar.Event
+        #https://icalendar.readthedocs.io/en/latest/usage.html
+        event.add('summary', 'Test')
+        x = datetime.datetime(2020, 5, 17)
+        event.add('dtstart', x)
+        event.add('dtend', x)
+        cal.add_component(event)
+        self.calendar.add_event(cal)
+
+    @intent_handler('kalender.next.event.intent')
+    def handle_kalender(self, message):
+        #USERNAME = self.settings.get('username')
+        #PASSWORT = self.settings.get('password')
+        #CALENDAR_URL = self.settings.get('url')
         calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
@@ -35,9 +77,11 @@ class Kalender(MycroftSkill):
     def handle_events_on_day(self, message):
         #USERNAME = self.settings.get('my_email_address')
         #PASSWORT = self.settings.get('my_password')
+        #CALENDAR_URL = self.settings.get('url')
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
+        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
 
         if nan_check(year):
             year = w2n.word_to_num(message.data.get("year"))
@@ -47,8 +91,6 @@ class Kalender(MycroftSkill):
 
         datetime_object = datetime.strptime(month, "%B")
         month_number = datetime_object.month
-
-        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
 
         if check_month(month) and check_day(day) and check_year(year):
             events = calendar.get_all_events_of_day(datetime(year, month_number, day))
@@ -87,9 +129,10 @@ def check_year(year):
 
 class CalendarFunctions:
     '''Contains all functions, that are needed for our calender skill'''
+    #Maybe doing own @intent_handler for connection ??
 
     calendar = None
-
+    #TODO: Update this after changing implementation of Passwort etc. means self.url, self.user .....
     def __init__(self, url, calendar_username, calendar_password):
         self.client = caldav.DAVClient(
             url=url,

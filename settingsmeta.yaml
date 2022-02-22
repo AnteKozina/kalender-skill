@@ -1,14 +1,20 @@
 skillMetadata:
    sections:
-      - name: USERNAME
+      - name: Login
         fields:
-          - name: my_email_address
-            type: email
-            label: Enter your email address
-            value: bw040@hdm-stuttgart.de
+          - name: username
+            type: username
+            label: hdm-email
+            value:
       - name: PASSWORT
         fields:
-          - name: my_password
+          - name: password
             type: password
-            label: Enter your password
-            value: beckerasano2
+            label: password
+            value:
+      - name: url
+        fields:
+          - name: url
+            type: text
+            label: calender-url
+            value:
