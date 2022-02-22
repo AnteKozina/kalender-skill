@@ -27,7 +27,7 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
         
-        print(os.listdir())
+        print(os.listdir("./skills"))
 
         with open("settings.json") as f:
             settings = json.load(f)
