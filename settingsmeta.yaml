@@ -5,16 +5,16 @@ skillMetadata:
           - name: username
             type: username
             label: hdm-email
-            value:
+            value: "bw040@hdm-stuttgart.de"
       - name: PASSWORT
         fields:
           - name: password
             type: password
             label: password
-            value:
+            value: "beckerasano2"
       - name: url
         fields:
           - name: url
             type: text
             label: calender-url
-            value:
+            value: "https://nextcloud.humanoidlab.hdm-stuttgart.de/remote.php/dav/calendars/bw040@hdm-stuttgart.de/personal/"
