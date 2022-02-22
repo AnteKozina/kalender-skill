@@ -184,17 +184,13 @@ def fix_time_object(time):
         Parameters: One Datetime Object
         Returns: One Datetime Object without timezone
     '''
+    # Falls datetime.date
+    if isinstance(time, datetime.date):
+        time = datetime(time.year, time.month, time.day)
+    
+    time = time.replace(tzinfo=None)
     info(time)
-    try: 
-        time = time.replace(tzinfo=None)
-        info("WORKS")
-        info(type(time))
-    except: 
-        info("FAILED")
-        info(type(time))
-    finally:
-        info("----------")
-        return time
+    return time
 
 def get_next_event_string(event):
     """
