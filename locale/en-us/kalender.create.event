@@ -1,2 +1,2 @@
-Create an appointment on {day} {month} && {year} at {startTime} to {endTime}
+Create an appointment on {day} {month} && {year} at {startTime} to {endTime} as {title}
 I want to create an appointment on {day} of {month} && {year} at {time}

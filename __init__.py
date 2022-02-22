@@ -62,6 +62,30 @@ class Kalender(MycroftSkill):
         else:
             self.speak_dialog("Date doesnt work")
 
+
+    @intent_handler('kalender.create.event')
+    def create_new_event(self, message):
+
+        calendar = CalendarFunctions(self.url, self.username, self.password)
+        day = message.data.get("day")
+        month = message.data.get("month")
+        year = message.data.get("year")
+        start_time = message.data.get("startTime") # 17:45
+        end_time = message.data.get("endTime")
+
+        start_time_date = datetime.datetime(year, month, day, start_time[:2], start_time[3:], 0)
+        info(start_time_date)
+
+
+        #self.calendar.add_event(cal)
+def create_event(title, start_date, duration):
+    event = icalendar.Event()
+    event.add('summary', summary)
+    event.add('dtstart', start)
+    event.add('duration', datetime.timedelta(hours=duration))
+    event.add('dtstamp', datetime.now())
+    return event
+
 def nan_check(number):
     return math.isnan(number)
 
