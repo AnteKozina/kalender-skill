@@ -21,9 +21,14 @@ class Kalender(MycroftSkill):
         MycroftSkill.__init__(self)
         
         settings_file = self.settings
-        info(settings_file) 
+        self.username = settings_file["skillMetadata"]["sections"][0]["fields"][0]["value"]
+        self.password = settings_file["skillMetadata"]["sections"][0]["fields"][1]["value"]
+        self.url = settings_file["skillMetadata"]["sections"][0]["fields"][2]["value"]
+        
+        info(f"USERNAME = {self.username}")
+        info(f"PASSWORD = {self.password}")
+        info(f"URL = {self.url}")
 
-    
     def initialize(self):
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
