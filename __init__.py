@@ -34,6 +34,21 @@ class Kalender(MycroftSkill):
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
 
+    @intent_handler('kalender.create.event')
+    def create_new_event(self):
+        #USERNAME = self.settings.get('my_email_address')
+        #PASSWORT = self.settings.get('my_password')
+        #CALENDAR_URL = self.settings.get('url')
+        calendar = CalendarFunctions(CALENDAR_URL, USERNAME, PASSWORT)
+        cal = icalendar.Calendar()
+        event = icalendar.Event()
+        event.add('summary', 'Test')
+        x = datetime.datetime(2020, 5, 17)
+        event.add('dtstart', x)
+        event.add('dtend', x)
+        cal.add_component(event)
+        self.calendar.add_event(cal)
+
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
 
