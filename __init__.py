@@ -65,6 +65,9 @@ class Kalender(MycroftSkill):
         else:
             self.speak_dialog("Date doesnt work")
 
+
+''' HELPER FUNCTIONS '''
+
 def create_skill():
     return Kalender()
 
@@ -88,6 +91,7 @@ def check_year(year):
     if year < 2022:
         return False
     return True
+
 
 
 class CalendarFunctions:
@@ -162,6 +166,26 @@ class CalendarFunctions:
                 events_on_day.append(event)
 
         return (events_on_day, day)
+
+    def create_event(self, event_name, begin_date, end_date):
+        '''
+        Create a new event in this calendar
+            Parameters:
+                event_name: String
+                begin_date: Date in datetime format, example: datetime.datetime(2022, 2, 25, 10)) -> 25.02.2022 10:00
+                end_date: Date in datetime format
+            Returns: None
+        '''
+
+        c = icalendar.Calendar()
+        event = icalendar.Event()
+
+        event.add("summary", event_name)
+        event.add("dtstart", begin_date)
+        event.add("dtend", end_date)
+
+        c.add_component(event)
+        self.calendar.add_event(c)
 
 
 def get_calender_events(cal_event):
