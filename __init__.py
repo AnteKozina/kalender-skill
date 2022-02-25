@@ -76,16 +76,10 @@ class Kalender(MycroftSkill):
         end_time = message.data.get("end_time")
         title = message.data.get("title")
         calendar = CalendarFunctions(self.url, self.username, self.password)
-        info(day)
-        info(month)
-        info(year)
-        info(start_time)
-        info(end_time)
-        info(title)
 
         day_creation_start = datetime(2022, 2, 25, 0, 0, 0)
         day_creation_end = datetime(2022, 2, 25, 3, 0, 0)
-        calender.create_event(self, title, day_creation_start, day_creation_end)
+        calendar.create_event(self, title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
 
