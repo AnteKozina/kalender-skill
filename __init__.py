@@ -83,8 +83,8 @@ class Kalender(MycroftSkill):
         info(end_time)
         info(title)
 
-        day_creation_start = datetime(2022, 2, 25, 0, 0)
-        day_creation_end = datetime(2022, 2, 25, 3, 0)
+        day_creation_start = datetime(2022, 2, 25, 0, 0, 0)
+        day_creation_end = datetime(2022, 2, 25, 3, 0, 0)
         create_event(self, title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
