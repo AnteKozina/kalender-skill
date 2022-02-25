@@ -68,14 +68,14 @@ class Kalender(MycroftSkill):
             self.speak_dialog("Date doesnt work")
 
     @intent_handler('kalender.create.event.intent')
-        def handle_events_creation(self, message):
-            month = message.data.get("month")
-            day = message.data.get("day")
-            year = message.data.get("year")
-            start_time = message.data.get("start_time")
-            end_time = message.data.get("end_time")
-            title = message.data.get("title")
-            self.speak_dialog("Test")
+    def handle_events_creation(self, message):
+        month = message.data.get("month")
+        day = message.data.get("day")
+        year = message.data.get("year")
+        start_time = message.data.get("start_time")
+        end_time = message.data.get("end_time")
+        title = message.data.get("title")
+        self.speak_dialog("Test")
 """
             if len(start_time) > 2:
                 day_creation_start = datetime(year, month, day, int(start_time[:2]), int(start_time[2:]))
