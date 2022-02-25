@@ -76,6 +76,7 @@ class Kalender(MycroftSkill):
         end_time = message.data.get("end_time")
         title = message.data.get("title")
         calendar = CalendarFunctions(self.url, self.username, self.password)
+        info(day)
         info(month)
         info(year)
         info(start_time)
