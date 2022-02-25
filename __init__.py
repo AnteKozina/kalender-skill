@@ -81,7 +81,7 @@ class Kalender(MycroftSkill):
         info(day)
         info(start_time)
         info(end_time)
-        info(time)
+        info(title)
         '''
         day_creation_start = datetime(year, month, day, int(start_time[:2]), int(start_time[2:]))
         day_creation_end = datetime(year, month, day, int(end_time[:2]), int(end_time[2:]))
