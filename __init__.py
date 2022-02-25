@@ -76,12 +76,18 @@ class Kalender(MycroftSkill):
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
         title = message.data.get("title")
+        info(year)
+        info(month)
+        info(day)
+        info(start_time)
+        info(end_time)
+        info(time)
         '''
         day_creation_start = datetime(year, month, day, int(start_time[:2]), int(start_time[2:]))
         day_creation_end = datetime(year, month, day, int(end_time[:2]), int(end_time[2:]))
         response = create_event(self, title, day_creation_start, day_creation_end)
         '''
-        self.speak_dialog(start_time)
+        self.speak_dialog("Test")
 
 ''' HELPER FUNCTIONS '''
 
