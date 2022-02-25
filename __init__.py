@@ -69,7 +69,7 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.create.event.intent')
     def handle_events_creation(self, message):
-
+        calendar = CalendarFunctions(self.url, self.username, self.password)
         month = message.data.get("month")
         day = message.data.get("day")
         year = message.data.get("year")
@@ -81,7 +81,7 @@ class Kalender(MycroftSkill):
         day_creation_end = datetime(year, month, day, int(end_time[:2]), int(end_time[2:]))
         response = create_event(self, title, day_creation_start, day_creation_end)
         '''
-        self.speak_dialog(start_time + " " + end_time)
+        self.speak_dialog(start_time[:2])
 
 ''' HELPER FUNCTIONS '''
 
