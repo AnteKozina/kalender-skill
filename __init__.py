@@ -12,35 +12,37 @@ import math
 Utc = pytz.UTC
 
 class Kalender(MycroftSkill):
+    '''Kalender Skill'''
     def __init__(self):
         MycroftSkill.__init__(self)
-        
+
         settings_file = self.settings
         self.username = settings_file["skillMetadata"]["sections"][0]["fields"][0]["value"]
         self.password = settings_file["skillMetadata"]["sections"][0]["fields"][1]["value"]
         self.url = settings_file["skillMetadata"]["sections"][0]["fields"][2]["value"]
-        
+
         info(f"USERNAME = {self.username}")
         info(f"PASSWORD = {self.password}")
         info(f"URL = {self.url}")
 
     def initialize(self):
+        '''Initialization'''
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-
+        '''Intent Handler: Next event'''
         calendar = CalendarFunctions(self.url, self.username, self.password)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
         self.speak_dialog(response)
 
-    
+
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
-
+        '''Intent Handler: Events on day'''
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
@@ -69,15 +71,30 @@ class Kalender(MycroftSkill):
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
+    '''Returns calendar'''
     return Kalender()
 
 def check_month(month):
-    if month == None:
+    '''
+    Returns true if param != None
+        Parameters:
+            month: String
+        Returns:
+            Boolean
+    '''
+    if month is None:
         return False
     return True
 
 def check_day(day):
-    if day == None:
+    '''
+    Check if number is a viable day
+        Parameters:
+            day: Number
+        Returns:
+            Boolean
+    '''
+    if day is None:
         return False
     day = int(day)
     if (day < 1) or (day > 31):
@@ -85,13 +102,19 @@ def check_day(day):
     return True
 
 def check_year(year):
-    if year == None:
+    '''
+    Returns True if year is viable
+        Parameters:
+            year: Number
+        Returns:
+            Boolean
+    '''
+    if year is None:
         return False
     year = int(year)
     if year < 2022:
         return False
     return True
-
 
 
 class CalendarFunctions:
@@ -162,7 +185,8 @@ class CalendarFunctions:
 
         for event in all_events:
             event_date = event["start"]
-            if (event_date.year == day.year) and (event_date.month == day.month) and (event_date.day == day.day):
+            ed = event_date
+            if (ed.year == day.year) and (ed.month == day.month) and (ed.day == day.day):
                 events_on_day.append(event)
 
         return (events_on_day, day)
@@ -177,15 +201,15 @@ class CalendarFunctions:
             Returns: None
         '''
 
-        c = icalendar.Calendar()
+        helper_calendar = icalendar.Calendar()
         event = icalendar.Event()
 
         event.add("summary", event_name)
         event.add("dtstart", begin_date)
         event.add("dtend", end_date)
 
-        c.add_component(event)
-        self.calendar.add_event(c)
+        helper_calendar.add_component(event)
+        self.calendar.add_event(helper_calendar)
 
 
 def get_calender_events(cal_event):
@@ -212,7 +236,7 @@ def fix_time_object(time):
     except:
         # WHEN DATE OBJECT IS ONLY DATE, NOT TIME
         time = dt(time.year, time.month, time.day)
-    
+
     time = time.replace(tzinfo=None)
     return time
 
@@ -231,12 +255,19 @@ def get_next_event_string(event):
     return f"Your next appointment is on {month} {day}, {year} at {time} o'clock and is entitled {event_name}."
 
 def get_events_on_day_string(events):
+    '''
+    Returns the events on a given day
+        Parameters:
+            events: List of events
+        Returns:
+            String: Response-String for MyCroft
+    '''
     start_time = events[1]
     year = start_time.year
     month = start_time.strftime("%B")
     day = start_time.day
     return_string = f"On {month} {day}, {year} you have the following appointments: "
-    
+
     # If No events on given day
     if len(events[0]) == 0:
         return f"You have no appointments on {month} {day}, {year}."
