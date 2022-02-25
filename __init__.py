@@ -69,13 +69,13 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.create.event.intent')
     def handle_events_creation(self, message):
-        calendar = CalendarFunctions(self.url, self.username, self.password)
         day = message.data.get("day")
         month = message.data.get("month")
         year = message.data.get("year")
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
         title = message.data.get("title")
+        calendar = CalendarFunctions(self.url, self.username, self.password)
         info(day)
         info(month)
         info(year)
