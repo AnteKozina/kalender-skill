@@ -75,16 +75,14 @@ class Kalender(MycroftSkill):
             start_time = message.data.get('start_time')
             end_time = message.data.get('end_time')
             title = message.data.get('title')
-
+"""
             if len(start_time) > 2:
                 day_creation_start = datetime(year, month, day, int(start_time[:2]), int(start_time[2:]))
                 day_creation_end = datetime(year, month, day, int(end_time[:2]), int(end_time[2:]))
                 response = create_event(self, title, day_creation_start, day_creation_end)
                 self.speak_dialog(response)
+"""
 
-            #duration = end_time - start_time
-
-            #response = create_event(self, title, start_date, end_date)
             self.speak_dialog("Test")
 
 ''' HELPER FUNCTIONS '''
