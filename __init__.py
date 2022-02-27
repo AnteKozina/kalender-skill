@@ -62,6 +62,7 @@ class Kalender(MycroftSkill):
         # CHECK IF USEABLE DATE
         if check_month(month) and check_day(day) and check_year(year):
             events = calendar.get_all_events_of_day(datetime(year, month_number, day))
+            info(events)
             response = get_events_on_day_string(events)
             self.speak_dialog(response)
         else:
@@ -88,6 +89,10 @@ class Kalender(MycroftSkill):
         calendar.create_event(title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
+
+    @intent_handler('kalender.delete.event.intent')
+    def handle_events_delete(self, message):
+        return None
 
 ''' HELPER FUNCTIONS '''
 
@@ -232,6 +237,9 @@ class CalendarFunctions:
         helper_calendar.add_component(event)
         self.calendar.add_event(helper_calendar)
 
+    def delete_event(self, date):
+         events = self.get_all_events_of_day(date)
+        return events
 
 def get_calender_events(cal_event):
     '''
