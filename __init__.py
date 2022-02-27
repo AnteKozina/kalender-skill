@@ -88,8 +88,6 @@ class Kalender(MycroftSkill):
         calendar = CalendarFunctions(self.url, self.username, self.password)
         date = datetime(2022, 2, 28, 0, 0, 0)
         event = calendar.delete_event(date)
-        caldav_event = calendar.event_by_url(event["event_url"])
-        caldav_event.delete()
         self.speak_dialog("Deleted appointment")
 
 ''' HELPER FUNCTIONS '''
@@ -258,7 +256,9 @@ class CalendarFunctions:
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
          info(events)
-         return self.ical_delete(events)
+         event = self.ical_delete(events)
+         info(event)
+         return event
 
 def get_calender_events(cal_event):
     '''
