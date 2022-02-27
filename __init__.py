@@ -251,6 +251,9 @@ def get_calender_events(cal_event):
         Returns: Dictionary of Events
     '''
     info(cal_event)
+    events = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 2, 28), expand=True)
+    info('-----------')
+    info(events)
     return {
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
