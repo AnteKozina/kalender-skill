@@ -169,7 +169,7 @@ class CalendarFunctions:
                 event_details = get_calender_events(vevent)
                 event_details["event_url"] = url
                 events_to_return.append(event_details)
-        event["event_url"]
+        events_to_return["event_url"]
         return events_to_return
 
 
@@ -181,6 +181,8 @@ class CalendarFunctions:
             Returns: Next event
         '''
         all_events = self.get_all_events()
+        info('---------------------')
+        info(all_events["event_url"])
         earliest_event = {}
         time_now = dt.now(tz=None)
 
