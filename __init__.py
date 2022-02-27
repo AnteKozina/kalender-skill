@@ -266,6 +266,7 @@ class CalendarFunctions:
             return None
          if len(event) > 1:
             for e in event:
+                info(e)
                 event_to_del = self.calendar.event_by_url(e["event_url"])
                 event_to_del.delete()
                 return event
