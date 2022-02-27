@@ -169,7 +169,6 @@ class CalendarFunctions:
                 event_details = get_calender_events(vevent)
                 event_details["event_url"] = url
                 events_to_return.append(event_details)
-        events_to_return["event_url"]
         return events_to_return
 
 
