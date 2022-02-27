@@ -164,6 +164,7 @@ class CalendarFunctions:
         for event in events:
             cal = icalendar.Calendar.from_ical(event.data, True)
             url = event.url
+            info(url)
             for vevent in cal[0].walk("vevent"):
                 event_details = get_calender_events(vevent)
                 event_details["event_url"] = url
@@ -180,7 +181,6 @@ class CalendarFunctions:
             Returns: Next event
         '''
         all_events = self.get_all_events()
-        info(all_events)
         earliest_event = {}
         time_now = dt.now(tz=None)
 
