@@ -134,9 +134,7 @@ class Kalender(MycroftSkill):
                 for e in events:
                     info(e)
                     if e["summary"] == old_title:
-                        caldav_rename = self.calendar.event_by_url(e[0]["event_url"])
-                        caldav_rename.vobject_instance.vevent.summary.value = title
-                        caldav_rename.save()
+                        event = calendar.rename_event_by_date(title, convert_date)
                         self.speak_dialog("Successful renamed appointment")
                         break
             self.speak_dialog("No Title found to be deleted")
