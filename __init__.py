@@ -167,7 +167,7 @@ class CalendarFunctions:
             Parameters: None
             Returns: All events in a list
         '''
-        test = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 2, 28), expand=True)
+        test = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 2, 29), expand=True)
         info('-------------')
         info(test)
         events = self.calendar.events()
