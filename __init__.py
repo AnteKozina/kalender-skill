@@ -258,6 +258,8 @@ class CalendarFunctions:
          info(events)
          event = self.ical_delete(events)
          info(event[0]["event_url"])
+         event_del = event[0]["event_url"]
+         event_del.delete()
          return event
 
 def get_calender_events(cal_event):
