@@ -82,11 +82,13 @@ class Kalender(MycroftSkill):
         calendar.create_event(title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
-'''
+
     @intent_handler('kalender.delete.event.intent')
     def handle_events_delete(self, message):
-        return None
-'''
+        calendar = CalendarFunctions(self.url, self.username, self.password)
+        date = datetime(2022, 2, 28)
+        calender.delete_event(date)
+
 
 ''' HELPER FUNCTIONS '''
 
@@ -163,13 +165,27 @@ class CalendarFunctions:
         for event in events:
             cal = icalendar.Calendar.from_ical(event.data, True)
             url = event.url
-            info(url)
             for vevent in cal[0].walk("vevent"):
                 event_details = get_calender_events(vevent)
                 event_details["event_url"] = url
                 events_to_return.append(event_details)
         return events_to_return
 
+    def ical_delete(self, events):
+        """
+        Parses calendar events from ical format to python dictionary
+        :param events: list of events (ical strings) that should be parsed
+        :return: python list containing the pared events as dictionaries
+        """
+        parsed_events = []
+        for event in events:
+            cal = icalendar.Calendar.from_ical(event.data, True)
+            url = event.url
+            for vevent in cal[0].walk("vevent"):
+                event_details = self.get_event_details(vevent)
+                event_details["event_url"] = url
+                parsed_events.append(event_details)
+        return parsed_events
 
     def get_next_event(self):
         '''
@@ -184,7 +200,6 @@ class CalendarFunctions:
 
         # loop through all events, if start time earlier -> replace earlist_event with current event
         for event in all_events:
-            info(event["event_url"])
             date_of_current_event = event["start"]
             if date_of_current_event > time_now:
                 # If earliest event is empty, it will be false
@@ -234,11 +249,14 @@ class CalendarFunctions:
 
         helper_calendar.add_component(event)
         self.calendar.add_event(helper_calendar)
-'''
+
     def delete_event(self, date):
-         events = self.get_all_events_of_day(date)
-        return events
-'''
+         start_date =  datetime.combine(date, datetime.min.time())
+         end_date = datetime.combine(date, datetime.max.time())
+         events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
+         info(events)
+        return self.ical_delete(events)
+
 def get_calender_events(cal_event):
     '''
     Build a calendar JSON Object from an event object
