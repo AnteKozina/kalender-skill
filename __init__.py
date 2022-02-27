@@ -179,8 +179,6 @@ class CalendarFunctions:
             Returns: Next event
         '''
         all_events = self.get_all_events()
-        info('---------------------')
-        info(all_events)
         earliest_event = {}
         time_now = dt.now(tz=None)
 
@@ -251,7 +249,7 @@ def get_calender_events(cal_event):
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
         "end" : fix_time_object(cal_event["DTEND"].dt),
-        #"url" : cal_event["ent_url"]
+        "url" : cal_event["event_url"]
     }
 
 def fix_time_object(time):
