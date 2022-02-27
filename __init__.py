@@ -89,10 +89,11 @@ class Kalender(MycroftSkill):
         calendar.create_event(title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
-
+'''
     @intent_handler('kalender.delete.event.intent')
     def handle_events_delete(self, message):
         return None
+'''
 
 ''' HELPER FUNCTIONS '''
 
