@@ -244,7 +244,7 @@ class CalendarFunctions:
          events = self.get_all_events_of_day(date)
         return events
 '''
-def get_calender_events(cal_event):
+def get_calender_events(self, cal_event):
     '''
     Build a calendar JSON Object from an event object
         Parameters: Calendar Event
