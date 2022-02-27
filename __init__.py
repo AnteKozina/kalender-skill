@@ -170,6 +170,7 @@ class CalendarFunctions:
         test = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 3, 1), expand=True)
         info('-------------')
         info(test)
+        info('-------------')
         events = self.calendar.events()
         events_to_return = []
         for event in events:
