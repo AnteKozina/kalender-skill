@@ -109,7 +109,7 @@ class Kalender(MycroftSkill):
                        event = calendar.delete_event(e["start"])
                        self.speak_dialog("Deleted appointment")
                        break
-        self.speak_dialog("No Title found to be deleted")
+            self.speak_dialog("No Title found to be deleted")
 
 ''' HELPER FUNCTIONS '''
 
