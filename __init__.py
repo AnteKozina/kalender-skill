@@ -186,6 +186,7 @@ class CalendarFunctions:
 
         # loop through all events, if start time earlier -> replace earlist_event with current event
         for event in all_events:
+            info(event["event_url"])
             date_of_current_event = event["start"]
             if date_of_current_event > time_now:
                 # If earliest event is empty, it will be false
