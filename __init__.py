@@ -117,7 +117,7 @@ class Kalender(MycroftSkill):
         title = message.data.get("title")
         info(date)
         info(title)
-        
+
         self.speak_dialog("Test")
 ''' HELPER FUNCTIONS '''
 
