@@ -69,14 +69,19 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.create.event.intent')
     def handle_events_creation(self, message):
-        day = message.data.get("day")
-        month = message.data.get("month")
-        year = message.data.get("year")
+
+        day = message.data.get("date")
+        convert_date = datetime(*map(int, date.split(' ')))
+
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
-        title = message.data.get("test")
-        calendar = CalendarFunctions(self.url, self.username, self.password)
+        title = message.data.get("title")
 
+        info(title)
+        info(start_time)
+        info(end_time)
+
+        calendar = CalendarFunctions(self.url, self.username, self.password)
         day_creation_start = datetime(2022, 2, 25, 0, 0, 0)
         day_creation_end = datetime(2022, 2, 25, 3, 0, 0)
         calendar.create_event(title, day_creation_start, day_creation_end)
@@ -102,7 +107,7 @@ class Kalender(MycroftSkill):
         if title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             events = calendar.get_all_events()
-            
+
             if len(events) > 1:
                 for e in events:
                     info(e)
