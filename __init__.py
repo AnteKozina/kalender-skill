@@ -174,19 +174,19 @@ class CalendarFunctions:
 
     def ical_delete(self, events):
         """
-        Parses calendar events from ical format to python dictionary
-        :param events: list of events (ical strings) that should be parsed
+        Parses calendar events from ical to python format
+        :param events: list of events from calender
         :return: python list containing the pared events as dictionaries
         """
-        parsed_events = []
+        event_on_day = []
         for event in events:
             cal = icalendar.Calendar.from_ical(event.data, True)
             url = event.url
             for vevent in cal[0].walk("vevent"):
                 event_details = get_calender_events(vevent)
                 event_details["event_url"] = url
-                parsed_events.append(event_details)
-        return parsed_events
+                event_on_day.append(event_details)
+        return event_on_day
 
     def get_next_event(self):
         '''
@@ -256,12 +256,20 @@ class CalendarFunctions:
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
-         info(events)
          event = self.ical_delete(events)
-         info(event[0]["event_url"])
-         event_del = self.calendar.event_by_url(event[0]["event_url"])
-         event_del.delete()
-         return event
+         if len(event) == 1:
+            info(event[0]["event_url"])
+            event_del = self.calendar.event_by_url(event[0]["event_url"])
+            event_del.delete()
+            return event
+         if len(event) < 1:
+            return None
+         if len(event) > 1:
+            for e in event:
+                event_to_del = self.calendar.event_by_url(e["event_url"])
+                event_to_del.delete()
+                return event
+         return None
 
 def get_calender_events(cal_event):
     '''
