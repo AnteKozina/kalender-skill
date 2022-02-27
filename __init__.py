@@ -111,6 +111,14 @@ class Kalender(MycroftSkill):
                        break
             self.speak_dialog("No Title found to be deleted")
 
+    @intent_handler('kalender.events.rename.event.intent')
+    def handle_events_rename(self, message):
+        date = message.data.get("date")
+        title = message.data.get("title")
+        info(date)
+        info(title)
+        
+        self.speak_dialog("Test")
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
@@ -291,6 +299,9 @@ class CalendarFunctions:
                     continue
                     return event
          return None
+
+    def rename_event(self, titel):
+        return None
 
 def get_calender_events(cal_event):
     '''
