@@ -252,7 +252,11 @@ class CalendarFunctions:
         self.calendar.add_event(helper_calendar)
 
     def delete_event(self, date):
-
+        '''
+            Function for deleting given events by date
+            Parameters: Date on which appointments should be deleted
+            Returns : Event which is deleted or None
+        '''
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
@@ -266,6 +270,7 @@ class CalendarFunctions:
             return None
          if len(event) > 1:
             for e in event:
+                info (e)
                 event_to_del = self.calendar.event_by_url(e["event_url"])
                 event_to_del.delete()
                 return event
