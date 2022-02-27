@@ -89,9 +89,11 @@ class Kalender(MycroftSkill):
         calendar = CalendarFunctions(self.url, self.username, self.password)
         convert_date = datetime(*map(int, date.split(' ')))
         event = calendar.delete_event(convert_date)
-        if len(event) > 1:
+        
+        if event is not None:
             self.speak_dialog("Deleted appointment")
-        if len(event) == 0:
+
+        if event is None:
             self.speak_dialog("No Event to Delete")
 
 ''' HELPER FUNCTIONS '''
