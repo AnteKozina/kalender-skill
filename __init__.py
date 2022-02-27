@@ -71,12 +71,12 @@ class Kalender(MycroftSkill):
     def handle_events_creation(self, message):
 
         date = message.data.get("date")
-        convert_date = datetime(*map(int, date.split(' ')))
 
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
         title = message.data.get("title")
-
+        convert_date = datetime(*map(int, date.split(' ')), start_time[:2], start_time[2:])
+        info(convert_date)
         info(title)
         info(start_time)
         info(end_time)
