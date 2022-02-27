@@ -134,8 +134,8 @@ class Kalender(MycroftSkill):
                 for e in events:
                     info(e)
                     if e["summary"] == old_title:
-                        caldav_event.vobject_instance.vevent.summary.value = title
-                        caldav_event.save()
+                        e.vobject_instance.vevent.summary.value = title
+                        e.save()
                         self.speak_dialog("Successful renamed appointment")
                         break
             self.speak_dialog("No Title found to be deleted")
