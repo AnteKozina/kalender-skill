@@ -271,6 +271,7 @@ class CalendarFunctions:
                 info(e)
                 event_to_del = self.calendar.event_by_url(e["event_url"])
                 event_to_del.delete()
+                continue
                 return event
          return None
 
