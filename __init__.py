@@ -123,11 +123,11 @@ class Kalender(MycroftSkill):
         if date is not None and title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             convert_date = datetime(*map(int, date.split(' ')))
-            event = calendar.rename_event(convert_date)
+            event = calendar.rename_event_by_date(title, convert_date)
             if event is not None:
                 self.speak_dialog("Successful renamed appointment")
             if event is None:
-               self.speak_dialog("Didnt rename appointment") 
+               self.speak_dialog("Didnt rename appointment")
         self.speak_dialog("Test")
 ''' HELPER FUNCTIONS '''
 
@@ -310,7 +310,7 @@ class CalendarFunctions:
                     return event
          return None
 
-    def rename_event(self, titel):
+    def rename_event_by_date(self, titel, date):
 
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
