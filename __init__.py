@@ -250,11 +250,12 @@ def get_calender_events(cal_event):
         Parameters: Calendar Event
         Returns: Dictionary of Events
     '''
+    info(cal_event)
     return {
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
         "end" : fix_time_object(cal_event["DTEND"].dt),
-        "url" : cal_event["url"]
+        #"url" : cal_event["event_url"]
     }
 
 def fix_time_object(time):
