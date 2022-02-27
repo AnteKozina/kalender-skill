@@ -71,17 +71,15 @@ class Kalender(MycroftSkill):
     def handle_events_creation(self, message):
 
         date = message.data.get("date")
-
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
         title = message.data.get("title")
+
         day_creation_start = datetime(*map(int, date.split(' ')), int(start_time[:2]), int(start_time[2:]))
         day_creation_end = datetime(*map(int, date.split(' ')), int(end_time[:2]), int(end_time[2:]))
 
         calendar = CalendarFunctions(self.url, self.username, self.password)
-
         calendar.create_event(title, day_creation_start, day_creation_end)
-
         self.speak_dialog("Created Event")
 
     @intent_handler('kalender.delete.event.intent')
