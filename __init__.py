@@ -237,11 +237,11 @@ class CalendarFunctions:
 
         helper_calendar.add_component(event)
         self.calendar.add_event(helper_calendar)
-
+'''
     def delete_event(self, date):
          events = self.get_all_events_of_day(date)
         return events
-
+'''
 def get_calender_events(cal_event):
     '''
     Build a calendar JSON Object from an event object
