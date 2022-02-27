@@ -109,8 +109,6 @@ class Kalender(MycroftSkill):
                     if e["summary"] == title:
                        event = calendar.delete_event(e["start"])
                        self.speak_dialog("Deleted appointment")
-                    else:
-                        self.speak_dialog("No title found to Delete")
 
         self.speak_dialog("No title found to Delete")
 
