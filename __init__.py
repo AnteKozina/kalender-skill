@@ -158,7 +158,6 @@ class CalendarFunctions:
             Parameters: None
             Returns: All events in a list
         '''
-        test = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 3, 1), expand=True)
         events = self.calendar.events()
         events_to_return = []
         for event in events:
@@ -181,7 +180,7 @@ class CalendarFunctions:
         '''
         all_events = self.get_all_events()
         info('---------------------')
-        info(all_events["event_url"])
+        info(all_events)
         earliest_event = {}
         time_now = dt.now(tz=None)
 
