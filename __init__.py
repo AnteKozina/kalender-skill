@@ -260,23 +260,23 @@ class CalendarFunctions:
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
          event = self.ical_delete(events)
-
-         if len(event) == 1:
-            #info(event[0]["event_url"])
-            event_del = self.calendar.event_by_url(event[0]["event_url"])
-            event_del.delete()
-            return event
-
-         if len(event) < 1:
-            return None
-
-         if len(event) > 1:
-            for e in event:
-                event_to_del = self.calendar.event_by_url(e["event_url"])
-                event_to_del.delete()
-                continue
+         if event is not None:
+            if len(event) == 1:
+                #info(event[0]["event_url"])
+                event_del = self.calendar.event_by_url(event[0]["event_url"])
+                event_del.delete()
                 return event
 
+            if len(event) < 1:
+                return None
+
+            if len(event) > 1:
+                for e in event:
+                    event_to_del = self.calendar.event_by_url(e["event_url"])
+                    event_to_del.delete()
+                    continue
+                    return event
+            return None
          return None
 
 def get_calender_events(cal_event):
