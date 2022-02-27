@@ -116,19 +116,29 @@ class Kalender(MycroftSkill):
         date = message.data.get("date")
         title = message.data.get("title")
         old_title = message.data.get("old_title")
-        info(date)
-        info(title)
-        info(old_title)
 
         if date is not None and title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             convert_date = datetime(*map(int, date.split(' ')))
             event = calendar.rename_event_by_date(title, convert_date)
+
             if event is not None:
                 self.speak_dialog("Successful renamed appointment")
             if event is None:
                self.speak_dialog("Didnt rename appointment")
-        self.speak_dialog("Test")
+
+        if old_title is not None and title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            events = calendar.get_all_events()
+            if len(events) > 1:
+                for e in events:
+                    info(e)
+                    if e["summary"] == old_title:
+                        caldav_event.vobject_instance.vevent.summary.value = title
+                        caldav_event.save()
+                        self.speak_dialog("Successful renamed appointment")
+                        break
+            self.speak_dialog("No Title found to be deleted")
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
@@ -312,16 +322,16 @@ class CalendarFunctions:
 
     def rename_event_by_date(self, title, date):
 
-         start_date =  datetime.combine(date, datetime.min.time())
-         end_date = datetime.combine(date, datetime.max.time())
-         events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
-         event = self.ical_delete_rename(events)
-         if event is not None:
-            caldav_rename = self.calendar.event_by_url(event[0]["event_url"])
-            caldav_rename.vobject_instance.vevent.summary.value = title
-            caldav_rename.save()
-            return event
-         return None
+        start_date =  datetime.combine(date, datetime.min.time())
+        end_date = datetime.combine(date, datetime.max.time())
+        events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
+        event = self.ical_delete_rename(events)
+        if event is not None:
+           caldav_rename = self.calendar.event_by_url(event[0]["event_url"])
+           caldav_rename.vobject_instance.vevent.summary.value = title
+           caldav_rename.save()
+           return event
+        return None
 
 def get_calender_events(cal_event):
     '''
