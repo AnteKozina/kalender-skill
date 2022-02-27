@@ -255,10 +255,12 @@ class CalendarFunctions:
 
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
+         info(start_date)
+         info(end_date)
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
          event = self.ical_delete(events)
          if len(event) == 1:
-            info(event[0]["event_url"])
+            #info(event[0]["event_url"])
             event_del = self.calendar.event_by_url(event[0]["event_url"])
             event_del.delete()
             return event
