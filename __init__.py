@@ -106,7 +106,7 @@ class Kalender(MycroftSkill):
             if len(events) > 1:
                 for e in events:
                     info(e)
-                   
+
                 """
                     if e["SUMMARY"] == title:
                        event = calendar.delete_event(e["DTSTART"])
@@ -190,11 +190,8 @@ class CalendarFunctions:
         events_to_return = []
         for event in events:
             cal = icalendar.Calendar.from_ical(event.data, True)
-            url = event.url
             for vevent in cal[0].walk("vevent"):
-                event_details = get_calender_events(vevent)
-                event_details["event_url"] = url
-                events_to_return.append(event_details)
+                events_to_return.append(get_calender_events(vevent))
         return events_to_return
 
     def ical_delete(self, events):
