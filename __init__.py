@@ -132,7 +132,6 @@ class Kalender(MycroftSkill):
             events = calendar.get_all_events()
             if len(events) > 1:
                 for e in events:
-                    info(e)
                     if e["summary"] == old_title:
                         event = calendar.rename_event_by_date(title, convert_date)
                         self.speak_dialog("Successful renamed appointment")
