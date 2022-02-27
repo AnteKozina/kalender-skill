@@ -1,2 +1,2 @@
 delete event on {date}
-delete event on {title}
+delete appointment by {title}

@@ -87,7 +87,7 @@ class Kalender(MycroftSkill):
     def handle_events_delete(self, message):
         date = message.data.get("date")
         title = message.data.get("title")
-        
+
         if data is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             convert_date = datetime(*map(int, date.split(' ')))
