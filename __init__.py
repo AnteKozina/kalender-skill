@@ -85,10 +85,16 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.delete.event.intent')
     def handle_events_delete(self, message):
+        day = message.data.get('day')
+        month = message.data.get('month')
+        year = message.data.get('year')
+        info(year)
+        info(month)
+        info(day)
         calendar = CalendarFunctions(self.url, self.username, self.password)
-        date = datetime(2022, 2, 28, 0, 0, 0)
+        date = datetime(year, month, day)
         event = calendar.delete_event(date)
-        self.speak_dialog("Deleted appointment")
+        self.speak_dialog(f"Deleted appointment {event["SUMMARY"]}")
 
 ''' HELPER FUNCTIONS '''
 
