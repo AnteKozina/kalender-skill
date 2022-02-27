@@ -70,7 +70,7 @@ class Kalender(MycroftSkill):
     @intent_handler('kalender.create.event.intent')
     def handle_events_creation(self, message):
 
-        day = message.data.get("date")
+        date = message.data.get("date")
         convert_date = datetime(*map(int, date.split(' ')))
 
         start_time = message.data.get("start_time")
