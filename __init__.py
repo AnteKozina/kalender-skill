@@ -87,7 +87,9 @@ class Kalender(MycroftSkill):
     def handle_events_delete(self, message):
         calendar = CalendarFunctions(self.url, self.username, self.password)
         date = datetime(2022, 2, 28, 0, 0, 0)
-        calendar.delete_event(date)
+        event = calendar.delete_event(date)
+        caldav_event = calendar.event_by_url(event["event_url"])
+        caldav_event.delete()
         self.speak_dialog("Deleted appointment")
 
 ''' HELPER FUNCTIONS '''
