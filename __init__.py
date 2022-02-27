@@ -116,10 +116,10 @@ class Kalender(MycroftSkill):
         date = message.data.get("date")
         title = message.data.get("title")
         old_title = message.data.get("old_title")
+        convert_date = datetime(*map(int, date.split(' ')))
         info(old_title)
         if date is not None and title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
-            convert_date = datetime(*map(int, date.split(' ')))
             event = calendar.rename_event_by_date(title, convert_date)
 
             if event is not None:
