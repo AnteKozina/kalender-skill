@@ -94,7 +94,7 @@ class Kalender(MycroftSkill):
         calendar = CalendarFunctions(self.url, self.username, self.password)
         date = datetime(year, month, day, 0, 0, 0)
         event = calendar.delete_event(date)
-        self.speak_dialog(f"Deleted appointment {event["SUMMARY"]}")
+        self.speak_dialog("Deleted appointment")
 
 ''' HELPER FUNCTIONS '''
 
