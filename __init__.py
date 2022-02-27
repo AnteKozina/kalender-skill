@@ -115,8 +115,10 @@ class Kalender(MycroftSkill):
     def handle_events_rename(self, message):
         date = message.data.get("date")
         title = message.data.get("title")
+        old_title = message.data.get("old_title")
         info(date)
         info(title)
+        info(old_title)
 
         self.speak_dialog("Test")
 ''' HELPER FUNCTIONS '''
