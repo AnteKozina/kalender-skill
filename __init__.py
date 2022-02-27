@@ -63,7 +63,7 @@ class Kalender(MycroftSkill):
         if check_month(month) and check_day(day) and check_year(year):
             events = calendar.get_all_events_of_day(datetime(year, month_number, day))
             info(events)
-            events2 = self.calendar.date_search(start=events['start'], end=event['end'], expand=True)
+            events2 = calendar.date_search(start=events['start'], end=event['end'], expand=True)
             info(events2)
             response = get_events_on_day_string(events)
             self.speak_dialog(response)
