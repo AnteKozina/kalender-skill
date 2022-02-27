@@ -290,7 +290,6 @@ class CalendarFunctions:
                     event_to_del.delete()
                     continue
                     return event
-            return None
          return None
 
 def get_calender_events(cal_event):

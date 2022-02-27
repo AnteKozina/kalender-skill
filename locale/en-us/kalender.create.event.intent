@@ -1,1 +1,2 @@
 create an appointment on {date} at the time {start_time} to {end_time} as title {title}
+create an appointment with name {title} on date {date} at the time {start_time} to {end_time}
