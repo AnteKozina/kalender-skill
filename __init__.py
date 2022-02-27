@@ -102,7 +102,7 @@ class Kalender(MycroftSkill):
         if title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             events = calendar.get_all_events()
-            info(events[0])
+            
             if len(events) > 1:
                 for e in events:
                     info(e)
