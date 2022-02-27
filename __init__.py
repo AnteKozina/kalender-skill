@@ -120,6 +120,10 @@ class Kalender(MycroftSkill):
         info(title)
         info(old_title)
 
+        if date is not None and title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            convert_date = datetime(*map(int, date.split(' ')))
+            event = calendar.rename_event(convert_date)
         self.speak_dialog("Test")
 ''' HELPER FUNCTIONS '''
 
@@ -199,7 +203,7 @@ class CalendarFunctions:
                 events_to_return.append(get_calender_events(vevent))
         return events_to_return
 
-    def ical_delete(self, events):
+    def ical_delete_rename(self, events):
         """
         Parses calendar events from ical to python format
         :param events: list of events from calender
@@ -283,7 +287,7 @@ class CalendarFunctions:
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
-         event = self.ical_delete(events)
+         event = self.ical_delete_rename(events)
          if event is not None:
             if len(event) == 1:
                 #info(event[0]["event_url"])
@@ -303,7 +307,16 @@ class CalendarFunctions:
          return None
 
     def rename_event(self, titel):
-        return None
+         start_date =  datetime.combine(date, datetime.min.time())
+         end_date = datetime.combine(date, datetime.max.time())
+         events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
+         event = self.ical_delete_rename(events)
+         if event is not None:
+            event_rename = self.calendar.event_by_url(event[0]["event_url"])
+            caldav_rename.vobject_instance.vevent.summary.value = title
+            caldav_rename.save()
+            return event
+         return None
 
 def get_calender_events(cal_event):
     '''
