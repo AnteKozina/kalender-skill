@@ -310,7 +310,7 @@ class CalendarFunctions:
                     return event
          return None
 
-    def rename_event_by_date(self, titel, date):
+    def rename_event_by_date(self, title, date):
 
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
