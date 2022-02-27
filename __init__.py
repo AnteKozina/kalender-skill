@@ -75,15 +75,11 @@ class Kalender(MycroftSkill):
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
         title = message.data.get("title")
-        convert_date = datetime(*map(int, date.split(' ')), int(start_time[:2]), int(start_time[2:]))
-        info(convert_date)
-        info(title)
-        info(start_time)
-        info(end_time)
+        day_creation_start = datetime(*map(int, date.split(' ')), int(start_time[:2]), int(start_time[2:]))
+        day_creation_end = datetime(*map(int, date.split(' ')), int(end_time[:2]), int(end_time[2:]))
 
         calendar = CalendarFunctions(self.url, self.username, self.password)
-        day_creation_start = datetime(2022, 2, 25, 0, 0, 0)
-        day_creation_end = datetime(2022, 2, 25, 3, 0, 0)
+
         calendar.create_event(title, day_creation_start, day_creation_end)
 
         self.speak_dialog("Created Event")
