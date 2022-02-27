@@ -167,6 +167,9 @@ class CalendarFunctions:
             Parameters: None
             Returns: All events in a list
         '''
+        test = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 2, 28), expand=True)
+        info('-------------')
+        info(test)
         events = self.calendar.events()
         events_to_return = []
         for event in events:
@@ -244,22 +247,19 @@ class CalendarFunctions:
          events = self.get_all_events_of_day(date)
         return events
 '''
-    def get_calender_events(self, cal_event):
+def get_calender_events(cal_event):
     '''
     Build a calendar JSON Object from an event object
         Parameters: Calendar Event
         Returns: Dictionary of Events
     '''
-        info(cal_event)
-        events = self.calendar.date_search(start=datetime(2022, 2, 28), end=datetime(2022, 2, 28), expand=True)
-        info('-----------')
-        info(events)
-        return {
-            "summary" : str(cal_event["SUMMARY"]),
-            "start" : fix_time_object(cal_event["DTSTART"].dt),
-            "end" : fix_time_object(cal_event["DTEND"].dt),
-            #"url" : cal_event["event_url"]
-        }
+    info(cal_event)
+    return {
+        "summary" : str(cal_event["SUMMARY"]),
+        "start" : fix_time_object(cal_event["DTSTART"].dt),
+        "end" : fix_time_object(cal_event["DTEND"].dt),
+        #"url" : cal_event["event_url"]
+    }
 
 def fix_time_object(time):
     '''
