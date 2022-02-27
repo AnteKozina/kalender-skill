@@ -99,6 +99,19 @@ class Kalender(MycroftSkill):
             if event is None:
                 self.speak_dialog("No Event to Delete")
 
+        if title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            events = calendar.get_all_events()
+
+            if len(events) > 1:
+                for e in events:
+                    if e["SUMMARY"] == title:
+                       event = calendar.delete_event(e["DTSTART"])
+                       self.speak_dialog("Deleted appointment")
+                    else:
+                        self.speak_dialog("No title found to Delete")
+        self.speak_dialog("No title found to Delete")
+
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
