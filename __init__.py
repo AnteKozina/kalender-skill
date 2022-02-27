@@ -85,12 +85,8 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.delete.event.intent')
     def handle_events_delete(self, message):
-        day = message.data.get("day")
-        month = message.data.get("month")
-        year = message.data.get("year")
-        info(year)
-        info(month)
-        info(day)
+        day = message.data.get("date")
+        info(date)
         calendar = CalendarFunctions(self.url, self.username, self.password)
         date = datetime(year, month, day, 0, 0, 0)
         event = calendar.delete_event(date)

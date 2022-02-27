@@ -1,1 +1,1 @@
-delete event on {day} && {month} && {year}
+delete event on {date}
