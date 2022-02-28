@@ -1,2 +1,2 @@
-What appointments do i have on {year} && {month} && {day}
-What are my appointments on {year} && {month} && {day}
+What appointments do i have on {day} of {month} && {year}
+What are my appointments on {month} && {day} && {year}
