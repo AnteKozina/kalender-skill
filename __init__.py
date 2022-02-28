@@ -69,7 +69,7 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.create.event.intent')
     def handle_events_creation(self, message):
-
+        '''Creating an Event'''
         date = message.data.get("date")
         start_time = message.data.get("start_time")
         end_time = message.data.get("end_time")
@@ -84,6 +84,7 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.delete.event.intent')
     def handle_events_delete(self, message):
+        '''Deleting an Event'''
         date = message.data.get("date")
         title = message.data.get("title")
 
@@ -115,6 +116,7 @@ class Kalender(MycroftSkill):
 
     @intent_handler('kalender.events.rename.event.intent')
     def handle_events_rename(self, message):
+        '''Renaming an Event'''
         date = message.data.get("date")
         title = message.data.get("title")
         old_title = message.data.get("old_title")
@@ -301,16 +303,18 @@ class CalendarFunctions:
 
     def delete_event(self, date):
          '''
-
+            Function for deleting a Specific event
+            Parameters: date of the event
+            Returns: Event or None
          '''
-         start_date =  datetime.combine(date, datetime.min.time())
-         end_date = datetime.combine(date, datetime.max.time())
-         events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
-         event = self.ical_delete_rename(events)
+         start_date =  datetime.combine(date, datetime.min.time()) #Minimale Zeit am Datum Sprich 0:0:0
+         end_date = datetime.combine(date, datetime.max.time())#Maximale Sprich 23:59:59
+         events = self.calendar.date_search(start=start_date, end=end_date, expand=True) # Alle Events an diesem Tag Mit Zeit oben
+         event = self.ical_delete_rename(events) #Mapping Event to python spezific
          if event is not None:
             if len(event) == 1:
                 #info(event[0]["event_url"])
-                event_del = self.calendar.event_by_url(event[0]["event_url"])
+                event_del = self.calendar.event_by_url(event[0]["event_url"]) # Deleting first event returned
                 event_del.delete()
                 return event
 
@@ -327,7 +331,9 @@ class CalendarFunctions:
 
     def rename_event_by_date(self, title, date):
         '''
-
+            Function for renaming a Specific event
+            Parameters: date and title of the event
+            Returns: Event or None
         '''
         start_date =  datetime.combine(date, datetime.min.time())
         end_date = datetime.combine(date, datetime.max.time())
