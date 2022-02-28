@@ -101,15 +101,17 @@ class Kalender(MycroftSkill):
         if title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             events = calendar.get_all_events()
-
+            has_del = False
             if len(events) > 1:
                 for e in events:
                     info(e)
                     if e["summary"] == title:
                        event = calendar.delete_event(e["start"])
                        self.speak_dialog("Deleted appointment")
+                       has_del = True
                        break
-            self.speak_dialog("No Title found to be deleted")
+            if has_del = False:
+                self.speak_dialog("No Title found to be deleted")
 
     @intent_handler('kalender.events.rename.event.intent')
     def handle_events_rename(self, message):
@@ -132,14 +134,14 @@ class Kalender(MycroftSkill):
             events = calendar.get_all_events()
             has_changed = False
             if len(events) >= 1:
-                for e in events: #8
-                    if e["summary"] == old_title: #8
+                for e in events:
+                    if e["summary"] == old_title:
                         event = calendar.rename_event_by_date(title, e["start"])
                         self.speak_dialog("Successful renamed appointment")
                         has_changed = True
                         break
             if has_changed is False:
-                self.speak_dialog("No Title found to be deleted") #1
+                self.speak_dialog("No Title found to be deleted")
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
@@ -220,9 +222,9 @@ class CalendarFunctions:
 
     def ical_delete_rename(self, events):
         """
-        Parses calendar events from ical to python format
-        :param events: list of events from calender
-        :return: python list containing the pared events as dictionaries
+            Parses calendar events from ical to python format
+            Parameters events: list of events from calender
+            Returns python list containing the pared events as dictionaries
         """
         event_on_day = []
         for event in events:
@@ -298,7 +300,9 @@ class CalendarFunctions:
         self.calendar.add_event(helper_calendar)
 
     def delete_event(self, date):
+         '''
 
+         '''
          start_date =  datetime.combine(date, datetime.min.time())
          end_date = datetime.combine(date, datetime.max.time())
          events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
@@ -322,7 +326,9 @@ class CalendarFunctions:
          return None
 
     def rename_event_by_date(self, title, date):
+        '''
 
+        '''
         start_date =  datetime.combine(date, datetime.min.time())
         end_date = datetime.combine(date, datetime.max.time())
         events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
