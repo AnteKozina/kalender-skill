@@ -1,2 +1,2 @@
-rename event on {date} with {title}
-rename appointment {old_title} with new title {title}
+rename event on {date} to {title}
+rename appointment {old_title} to {title}
