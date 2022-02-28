@@ -12,35 +12,37 @@ import math
 Utc = pytz.UTC
 
 class Kalender(MycroftSkill):
+    '''Kalender Skill'''
     def __init__(self):
         MycroftSkill.__init__(self)
-        
+
         settings_file = self.settings
         self.username = settings_file["skillMetadata"]["sections"][0]["fields"][0]["value"]
         self.password = settings_file["skillMetadata"]["sections"][0]["fields"][1]["value"]
         self.url = settings_file["skillMetadata"]["sections"][0]["fields"][2]["value"]
-        
+
         info(f"USERNAME = {self.username}")
         info(f"PASSWORD = {self.password}")
         info(f"URL = {self.url}")
 
     def initialize(self):
+        '''Initialization'''
         self.register_entity_file('year.entity')
         self.register_entity_file('month.entity')
         self.register_entity_file('day.entity')
 
     @intent_handler('kalender.next.event.intent')
     def handle_kalender(self, message):
-
+        '''Intent Handler: Next event'''
         calendar = CalendarFunctions(self.url, self.username, self.password)
         event = calendar.get_next_event()
         response = get_next_event_string(event)
         self.speak_dialog(response)
 
-    
+
     @intent_handler('kalender.events.on.day.intent')
     def handle_events_on_day(self, message):
-
+        '''Intent Handler: Events on day'''
         month = message.data.get("month")
         day = int(message.data.get("day"))
         year = int(message.data.get("year"))
@@ -65,16 +67,110 @@ class Kalender(MycroftSkill):
         else:
             self.speak_dialog("Date doesnt work")
 
+    @intent_handler('kalender.create.event.intent')
+    def handle_events_creation(self, message):
+        '''Creating an Event'''
+        date = message.data.get("date")
+        start_time = message.data.get("start_time")
+        end_time = message.data.get("end_time")
+        title = message.data.get("title")
+
+        day_creation_start = datetime(*map(int, date.split(' ')), int(start_time[:2]), int(start_time[2:]))
+        day_creation_end = datetime(*map(int, date.split(' ')), int(end_time[:2]), int(end_time[2:]))
+
+        calendar = CalendarFunctions(self.url, self.username, self.password)
+        calendar.create_event(title, day_creation_start, day_creation_end)
+        self.speak_dialog("Created Event")
+
+    @intent_handler('kalender.delete.event.intent')
+    def handle_events_delete(self, message):
+        '''Deleting an Event'''
+        date = message.data.get("date")
+        title = message.data.get("title")
+
+        if date is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            convert_date = datetime(*map(int, date.split(' ')))
+            event = calendar.delete_event(convert_date)
+
+            if event is not None:
+                self.speak_dialog("Deleted appointment")
+
+            if event is None:
+                self.speak_dialog("No Event to Delete")
+
+        if title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            events = calendar.get_all_events()
+            has_del = False
+            if len(events) > 1:
+                for e in events:
+                    info(e)
+                    if e["summary"] == title:
+                       event = calendar.delete_event(e["start"])
+                       self.speak_dialog("Deleted appointment")
+                       has_del = True
+                       break
+            if has_del is False:
+                self.speak_dialog("No Title found to be deleted")
+
+    @intent_handler('kalender.events.rename.event.intent')
+    def handle_events_rename(self, message):
+        '''Renaming an Event'''
+        date = message.data.get("date")
+        title = message.data.get("title")
+        old_title = message.data.get("old_title")
+        info(old_title)
+        if date is not None and title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            convert_date = datetime(*map(int, date.split(' ')))
+            event = calendar.rename_event_by_date(title, convert_date)
+
+            if event is not None:
+                self.speak_dialog("Successful renamed appointment")
+            if event is None:
+               self.speak_dialog("Didnt rename appointment")
+
+        if old_title is not None and title is not None:
+            calendar = CalendarFunctions(self.url, self.username, self.password)
+            events = calendar.get_all_events()
+            has_changed = False
+            if len(events) >= 1:
+                for e in events:
+                    if e["summary"] == old_title:
+                        event = calendar.rename_event_by_date(title, e["start"])
+                        self.speak_dialog("Successful renamed appointment")
+                        has_changed = True
+                        break
+            if has_changed is False:
+                self.speak_dialog("No Title found to be deleted")
+''' HELPER FUNCTIONS '''
+
 def create_skill():
+    '''Returns calendar'''
     return Kalender()
 
 def check_month(month):
-    if month == None:
+    '''
+    Returns true if param != None
+        Parameters:
+            month: String
+        Returns:
+            Boolean
+    '''
+    if month is None:
         return False
     return True
 
 def check_day(day):
-    if day == None:
+    '''
+    Check if number is a viable day
+        Parameters:
+            day: Number
+        Returns:
+            Boolean
+    '''
+    if day is None:
         return False
     day = int(day)
     if (day < 1) or (day > 31):
@@ -82,7 +178,14 @@ def check_day(day):
     return True
 
 def check_year(year):
-    if year == None:
+    '''
+    Returns True if year is viable
+        Parameters:
+            year: Number
+        Returns:
+            Boolean
+    '''
+    if year is None:
         return False
     year = int(year)
     if year < 2022:
@@ -117,9 +220,23 @@ class CalendarFunctions:
             cal = icalendar.Calendar.from_ical(event.data, True)
             for vevent in cal[0].walk("vevent"):
                 events_to_return.append(get_calender_events(vevent))
-
         return events_to_return
 
+    def ical_delete_rename(self, events):
+        """
+            Parses calendar events from ical to python format
+            Parameters events: list of events from calender
+            Returns python list containing the pared events as dictionaries
+        """
+        event_on_day = []
+        for event in events:
+            cal = icalendar.Calendar.from_ical(event.data, True)
+            url = event.url
+            for vevent in cal[0].walk("vevent"):
+                event_details = get_calender_events(vevent)
+                event_details["event_url"] = url
+                event_on_day.append(event_details)
+        return event_on_day
 
     def get_next_event(self):
         '''
@@ -158,11 +275,77 @@ class CalendarFunctions:
 
         for event in all_events:
             event_date = event["start"]
-            if (event_date.year == day.year) and (event_date.month == day.month) and (event_date.day == day.day):
+            ed = event_date
+            if (ed.year == day.year) and (ed.month == day.month) and (ed.day == day.day):
                 events_on_day.append(event)
 
         return (events_on_day, day)
 
+    def create_event(self, event_name, begin_date, end_date):
+        '''
+        Create a new event in this calendar
+            Parameters:
+                event_name: String
+                begin_date: Date in datetime format, example: datetime.datetime(2022, 2, 25, 10)) -> 25.02.2022 10:00
+                end_date: Date in datetime format
+            Returns: None
+        '''
+
+        helper_calendar = icalendar.Calendar()
+        event = icalendar.Event()
+
+        event.add("summary", event_name)
+        event.add("dtstart", begin_date)
+        event.add("dtend", end_date)
+
+        helper_calendar.add_component(event)
+        self.calendar.add_event(helper_calendar)
+
+    def delete_event(self, date):
+         '''
+            Function for deleting a Specific event
+            Parameters: date of the event
+            Returns: Event or None
+         '''
+         start_date =  datetime.combine(date, datetime.min.time()) #Minimale Zeit am Datum Sprich 0:0:0
+         end_date = datetime.combine(date, datetime.max.time())#Maximale Sprich 23:59:59
+         events = self.calendar.date_search(start=start_date, end=end_date, expand=True) # Alle Events an diesem Tag Mit Zeit oben
+         event = self.ical_delete_rename(events) #Mapping Event to python spezific
+         if event is not None:
+            if len(event) == 1:
+                #info(event[0]["event_url"])
+                event_del = self.calendar.event_by_url(event[0]["event_url"]) # Deleting first event returned
+                event_del.delete()
+                return event
+
+            if len(event) < 1:
+                return None
+
+            if len(event) > 1:
+                for e in event:
+                    event_to_del = self.calendar.event_by_url(e["event_url"])
+                    event_to_del.delete()
+                    continue
+                    return event
+         return None
+
+    def rename_event_by_date(self, title, date):
+        '''
+            Function for renaming a Specific event
+            Parameters: date and title of the event
+            Returns: Event or None
+        '''
+        start_date =  datetime.combine(date, datetime.min.time())
+        end_date = datetime.combine(date, datetime.max.time())
+        events = self.calendar.date_search(start=start_date, end=end_date, expand=True)
+        event = self.ical_delete_rename(events)
+        if event is not None:
+           caldav_rename = self.calendar.event_by_url(event[0]["event_url"])
+           info(caldav_rename)
+           caldav_rename.vobject_instance.vevent.summary.value = title
+           caldav_rename.save()
+           return event
+        return None
 
 def get_calender_events(cal_event):
     '''
@@ -174,7 +357,7 @@ def get_calender_events(cal_event):
         "summary" : str(cal_event["SUMMARY"]),
         "start" : fix_time_object(cal_event["DTSTART"].dt),
         "end" : fix_time_object(cal_event["DTEND"].dt),
-        #"url" : cal_event["url"]
+        #"url" : cal_event["event_url"]
     }
 
 def fix_time_object(time):
@@ -188,7 +371,7 @@ def fix_time_object(time):
     except:
         # WHEN DATE OBJECT IS ONLY DATE, NOT TIME
         time = dt(time.year, time.month, time.day)
-    
+
     time = time.replace(tzinfo=None)
     return time
 
@@ -207,12 +390,19 @@ def get_next_event_string(event):
     return f"Your next appointment is on {month} {day}, {year} at {time} o'clock and is entitled {event_name}."
 
 def get_events_on_day_string(events):
+    '''
+    Returns the events on a given day
+        Parameters:
+            events: List of events
+        Returns:
+            String: Response-String for MyCroft
+    '''
     start_time = events[1]
     year = start_time.year
     month = start_time.strftime("%B")
     day = start_time.day
     return_string = f"On {month} {day}, {year} you have the following appointments: "
-    
+
     # If No events on given day
     if len(events[0]) == 0:
         return f"You have no appointments on {month} {day}, {year}."

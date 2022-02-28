@@ -1,0 +1,2 @@
+delete event on {date}
+delete appointment by title {title}
