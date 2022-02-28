@@ -329,6 +329,7 @@ class CalendarFunctions:
         event = self.ical_delete_rename(events)
         if event is not None:
            caldav_rename = self.calendar.event_by_url(event[0]["event_url"])
+           info(caldav_rename)
            caldav_rename.vobject_instance.vevent.summary.value = title
            caldav_rename.save()
            return event
