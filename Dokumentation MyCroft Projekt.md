@@ -53,6 +53,9 @@ Damit diese Entities zur Kalenderinteraktion verwendet werden können, haben wir
 
 Anschließend haben wir versucht, die Anmeldedaten für den Kalender über ein settingsmeta.yaml einzubinden. Der Plan war es, dass beim Herunterladen des Skills die Anmeldedaten auf der Website eingegeben werden und dadurch in der settingsmeta.yaml-Datei landen. Das hat aber nicht funktioniert, daher sind die Anmeldedaten in der settings.json zu finden. Würde dieses Projekt weitergeführt werden, wäre ein vollständiges Entfernen der Anmeldedaten aus dem Code der logische, nächste Schritt.
 
+## Bonusaufgaben
+Dann haben wir die Bonusaufgaben umgesetzt, zuerst die Event-Erstellung, dann das Löschen und schließlich das Umbenennen.
+
 
 # Erläuterung unseres Konzepts
 Alles geschieht in der \_\_init__.py. Ein neuer Kalender wird angelegt, die Anmeldedaten kommen aus der settings.json. In der Kalenderklasse sind verschiedene Intent-Handler zu finden, die jeweils eine Interaktion mit dem Nutzer behandeln.
@@ -61,6 +64,8 @@ Jeder Intent-Handler hat Zugriff auf die Entities, die in der Nachricht zu finde
 
 Mithilfe dieser Entities rufen die Intent-Handler die unten gegebenen Kalender-Funktionen auf. Diese Kalenderfunktionen rufen die relevanten Funktionen vom Kalender ab, bauen die Informationen in einen String ein und geben diesen an den Intent-Handler zurück.
 Dieser String wird dann durch den Intent-Handler an den Benutzer ausgegeben.
+
+Beim Löschen und Umbenennen eines Events wird das Datum des Events abgesucht. Mit dem dabei gefundenen Event wird dann weiter gearbeitet (wird gelöscht oder umbenannt).
 
 
 # Neuen Mycroft Skill anlegen
@@ -91,6 +96,12 @@ Zunächst gelernt haben wir den Umgang mit ical-Objekten, die ein Standard im We
 ### Wie man den Skill weiterentwickeln könnte
 Ein Kalender, bei dem man nur so wenige Funktionen hat wie unser Kalender, ist noch nicht besonders nützlich. Mehr Funktionen wären hier sinnvoll, z.B. das Anlegen von zusätzlichen Informationen pro Termin, das Anlegen von wiederkehrenden Terminen, Einladungen für bestimmte Termine zu verschicken, und so weiter, die Möglichkeiten sind nahezu endlos.
 
-Technisch wäre es auch nötig, die Anmeldedaten komplett aus dem Code zu nehmen und dies über die MyCroft-Seite zu regeln.
+Technisch wäre es auch nötig, die Anmeldedaten komplett aus dem Code zu nehmen und dies über die MyCroft-Seite zu regeln. Hinsichtlich der Sicherheit besteht momentan ein Problem bei uns, da die Anmeldedaten mit im Repository zu finden sind. Da das Repository aber privat ist, die Anmeldedaten nach Ablauf des Semesters ohnehin nicht mehr funktionieren und das Testen unseres Programms dadurch deutlich erleichert wurde, haben wir uns entschieden, dies so zu lassen. In einer echten Produktion wäre das ein großer Fehler, dessen sind wir uns selbstverständlich bewusst.
 
-Auch wäre es sicherlich hilfreich herauszufinden, warum die Aufteilung auf mehrere Klassen nicht funktioniert hat, da die Datei sehr schnell groß und unübersichtlich wird.
+Auch wäre es sicherlich hilfreich herauszufinden, warum die Aufteilung auf mehrere Klassen nicht funktioniert hat, da die Datei \_\_init__.py sehr schnell groß und unübersichtlich wird.
+
+# Anhang
+### Funktionierende mycroft-cli-client Befehle (als Beispiel)
+whats my next appointment
+
+[HIER NOCH HINZUFÜGEN]
