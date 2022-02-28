@@ -110,7 +110,7 @@ class Kalender(MycroftSkill):
                        self.speak_dialog("Deleted appointment")
                        has_del = True
                        break
-            if has_del = False:
+            if has_del is False:
                 self.speak_dialog("No Title found to be deleted")
 
     @intent_handler('kalender.events.rename.event.intent')
