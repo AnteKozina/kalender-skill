@@ -130,13 +130,16 @@ class Kalender(MycroftSkill):
         if old_title is not None and title is not None:
             calendar = CalendarFunctions(self.url, self.username, self.password)
             events = calendar.get_all_events()
-            if len(events) > 1:
-                for e in events:
-                    if e["summary"] == old_title:
+            has_changed = False
+            if len(events) >= 1:
+                for e in events: #8
+                    if e["summary"] == old_title: #8
                         event = calendar.rename_event_by_date(title, e["start"])
                         self.speak_dialog("Successful renamed appointment")
+                        has_changed = True
                         break
-            self.speak_dialog("No Title found to be deleted")
+            if has_changed is False:
+                self.speak_dialog("No Title found to be deleted") #1
 ''' HELPER FUNCTIONS '''
 
 def create_skill():
