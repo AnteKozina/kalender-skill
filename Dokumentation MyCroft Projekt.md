@@ -102,6 +102,13 @@ Auch wäre es sicherlich hilfreich herauszufinden, warum die Aufteilung auf mehr
 
 # Anhang
 ### Funktionierende mycroft-cli-client Befehle (als Beispiel)
+
 whats my next appointment
 
-[HIER NOCH HINZUFÜGEN]
+What appointments do i have on 28 of February 2022
+
+create an appointment on 2022 3 1 at 1130 to 1200 as Testtermin1
+
+delete event on 2022 3 1 
+
+rename event on 2022 3 1 to TESTTERMIN1
